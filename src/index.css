@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: Quenda;
+  font-weight: normal;
+  font-style: normal;
+  src: url('/src/assets/fonts/Quenda-Medium.otf') format('opentype');
+}
