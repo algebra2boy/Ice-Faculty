@@ -9,6 +9,7 @@ function App() {
         <Route path="signup" element={<Page.SignupPage />} />
         <Route path="home" element={<Page.HomePage />} />
         <Route path="upload" element={<Page.UploadPage />} />
+        <Route path="officeHour/:id" element={<Page.OfficeHourDetailPage />}/>
         <Route path="edit/:id" element={<Page.EditPage />} />
       </Route>
     </Routes>
