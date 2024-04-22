@@ -34,7 +34,7 @@ export default {
     daisyui,
   ],
   daisyui: {
-    //darkTheme: false,
+    // darkTheme: false,
     themes: [
       {
         light: {
