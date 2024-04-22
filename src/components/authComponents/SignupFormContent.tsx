@@ -6,7 +6,7 @@ const SignupFormContent: React.FC<SignupLoginFormProps> = (props: SignupLoginFor
 
   return (
     <>
-      <label className=" text-2xl font-bold m-auto">Sign Up</label>
+      <h2 className=" text-2xl font-bold m-auto">Sign Up</h2>
       <input
         type="text"
         placeholder="Name"
