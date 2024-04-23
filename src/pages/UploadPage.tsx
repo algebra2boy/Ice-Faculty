@@ -98,7 +98,7 @@ const UploadPage = () => {
 
         <div className='flex justify-between gap-4'>
           <button className="btn btn-sm" onClick={addSlotHandler}>Add more slot</button>
-          <button className="btn btn-sm bg-blue-400" onClick={submitHandler}>Submit</button>
+          <button className="btn btn-sm btn-info" onClick={submitHandler}>Submit</button>
         </div>
 
       </div>

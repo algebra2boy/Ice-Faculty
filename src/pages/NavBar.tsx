@@ -1,6 +1,6 @@
 import { Outlet, Link } from "react-router-dom";
 import logo from "/favicon.svg";
-// import DarkModeIcon from "../components/LightDarkMode";
+import DarkModeIcon from "../components/LightDarkMode";
 
 const NavBar = () => {
   return (
@@ -15,7 +15,7 @@ const NavBar = () => {
             {/* TODO: Only show upload button when user logins */}
             <li><Link to="/upload">Upload</Link></li>
           </ul>
-          {/* <DarkModeIcon></DarkModeIcon> */}
+          <DarkModeIcon></DarkModeIcon>
         </div>
       </nav>
       <Outlet />
