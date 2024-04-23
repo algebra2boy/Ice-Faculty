@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 const NavBar = () => {
   return (
     <div>
-      <div>This is the nav bar</div>
+      <body className="text-mainColor">This is the nav bar</body>
       <Outlet />
     </div>
   );

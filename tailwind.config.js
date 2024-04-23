@@ -1,5 +1,17 @@
 import daisyui from 'daisyui'
-import plugin from '@tailwindcss/typography'
+
+const palette = {
+  colorDodgerblue: '#2596ff',
+  colorLightblue: '#A2CFFE',
+  colorWhite: '#fff',
+  colorGainsboro: '#525252',
+  colorBlack: '#000',
+  colorEmeraldGreen: '#02c262',
+  colorScarletRed: '#eb4034',
+  colorVioletPurple: '#9370DB',
+  colorSunshineYellow: '#fcffc7',
+  colorGoldenrodOrange: '#fcdb44',
+};
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -7,11 +19,18 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  theme: {
-    extend: {},
+  theme: { // change theme here
+    colors: {
+      mainColor: palette.colorLightblue,
+      subColor: palette.colorBlack,
+      primaryColor: palette.colorWhite,
+      disableColor: palette.colorGainsboro,
+      checkBoxColor: palette.colorEmeraldGreen,
+      errorColor: palette.colorScarletRed,
+    },
   },
   plugins: [
-    plugin,
+    require('@tailwindcss/typography'),
     daisyui,
   ],
   daisyui: {
@@ -19,22 +38,14 @@ export default {
     themes: [
       {
         light: {
-          "primary": "#a991f7",
-          "secondary": "#f6d860",
-          "accent": "#37cdbe",
-          "neutral": "#3d4451",
-          "base-100": "#ffffff",
-          fontFamily: 'Quenda'
+          "base-100": "#e8e8e8",
+          fontFamily: 'Quenda',
         },
       },
       {
         dark: {
-          "primary": "#a991f7",
-          "secondary": "#f6d860",
-          "accent": "#37cdbe",
-          "neutral": "#3d4451",
           "base-100": "#383838",
-          fontFamily: 'Quenda'
+          fontFamily: 'Quenda',
         },
       },
     ],
