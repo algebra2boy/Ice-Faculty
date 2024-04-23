@@ -1,5 +1,6 @@
 import { departmentOptions } from '../models/departmentOptions';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 interface Slot {
   day: string;
@@ -53,54 +54,98 @@ const UploadPage = () => {
     <div className="flex justify-center items-center min-h-screen bg-gray-200">
       <div className="mx-auto w-1/3 bg-gray-100 p-6 rounded-lg shadow-lg flex flex-col gap-3.5 items-center">
         {JSON.stringify(uploadOfficeHour)}
-        <select className="select select-bordered select-sm w-full max-w-xs" defaultValue={"DEFAULT"} onChange={valueHandler} name="department">
-          <option value="DEFAULT" disabled>Course Department</option>
-          {departmentOptions.map((department, index) =>
-            <option key={index} value={department}>{department}</option>)
-          }
+        <select
+          className="select select-bordered select-sm w-full max-w-xs"
+          defaultValue={"DEFAULT"}
+          onChange={valueHandler}
+          name="department"
+        >
+          <option value="DEFAULT" disabled>
+            Course Department
+          </option>
+          {departmentOptions.map((department, index) => (
+            <option key={index} value={department}>
+              {department}
+            </option>
+          ))}
         </select>
 
-        <input type="text" placeholder="Course Number" className="input input-bordered w-full max-w-xs" onChange={valueHandler} name="courseNumber" />
+        <input
+          type="text"
+          placeholder="Course Number"
+          className="input input-bordered w-full max-w-xs"
+          onChange={valueHandler}
+          name="courseNumber"
+        />
 
         <DateTextField labelName="Start date" onChange={valueHandler} name="startDate" />
 
         <DateTextField labelName="End date" onChange={valueHandler} name="endDate" />
 
-        <input type="text" placeholder="Faculty Name" className="input input-bordered w-full max-w-xs" onChange={valueHandler} name="facultyName" />
+        <input
+          type="text"
+          placeholder="Faculty Name"
+          className="input input-bordered w-full max-w-xs"
+          onChange={valueHandler}
+          name="facultyName"
+        />
 
-        {uploadOfficeHour.slot.map((slot, index) =>
+        {uploadOfficeHour.slot.map((slot, index) => (
           <div className="mb-6">
-
             <div className="flex mb-4">
               <div className="flex w-full justify-between items-center">
                 <p>Office Hour slot #{index + 1}</p>
-                {index !== 0 &&
-                  <button className="btn btn-error btn-sm" onClick={() => deleteSlotHandler(index)}>Delete Slot</button>
-                }
+                {index !== 0 && (
+                  <button className="btn btn-error btn-sm" onClick={() => deleteSlotHandler(index)}>
+                    Delete Slot
+                  </button>
+                )}
               </div>
             </div>
 
             <div className="mb-4">
-              <select className="select select-bordered select-sm w-full max-w-xs" defaultValue={"Monday"} onChange={slotValueHandler(index, "day")} value={slot.day}>
+              <select
+                className="select select-bordered select-sm w-full max-w-xs"
+                defaultValue={"Monday"}
+                onChange={slotValueHandler(index, "day")}
+                value={slot.day}
+              >
                 {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].map((day, index) => (
-                  <option key={index} value={day}>{day}</option>
+                  <option key={index} value={day}>
+                    {day}
+                  </option>
                 ))}
               </select>
             </div>
 
             <div className="flex gap-2 mb-">
-              <input type="time" className="input input-bordered w-full max-w-xs" onChange={slotValueHandler(index, "startTime")} value={slot.startTime} />
-              <input type="time" className="input input-bordered w-full max-w-xs" onChange={slotValueHandler(index, "endTime")} value={slot.endTime} />
+              <input
+                type="time"
+                className="input input-bordered w-full max-w-xs"
+                onChange={slotValueHandler(index, "startTime")}
+                value={slot.startTime}
+              />
+              <input
+                type="time"
+                className="input input-bordered w-full max-w-xs"
+                onChange={slotValueHandler(index, "endTime")}
+                value={slot.endTime}
+              />
             </div>
-
           </div>
-        )}
+        ))}
 
-        <div className='flex justify-between gap-4'>
-          <button className="btn btn-sm" onClick={addSlotHandler}>Add more slot</button>
-          <button className="btn btn-sm btn-info" onClick={submitHandler}>Submit</button>
+        <div className="flex justify-between gap-4">
+          <button className="btn btn-sm" onClick={addSlotHandler}>
+            Add more slot
+          </button>
+          <Link to="/home">
+            <button className="btn btn-sm btn-warning">Cancel</button>
+          </Link>
+          <button className="btn btn-sm btn-info" onClick={submitHandler}>
+            Submit
+          </button>
         </div>
-
       </div>
     </div>
   );
