@@ -46,8 +46,65 @@ const UploadPage = () => {
     setUploadOfficeHour({ ...uploadOfficeHour, slot: filteredSlots });
   }
 
-  const submitHandler = () => {
-    console.log("submit");
+  const submitHandler = async () => {
+
+    if (isFormEmpty()) {
+      alert("Please fill in all fields");
+      return;
+    }
+
+    const dayConverter = (day: string): number => {
+      switch (day) {
+        case "Monday":
+          return 0;
+        case "Tuesday":
+          return 1;
+        case "Wednesday":
+          return 2;
+        case "Thursday":
+          return 3;
+        case "Friday":
+          return 4;
+        case "Saturday":
+          return 5;
+        case "Sunday":
+          return 6;
+        default:
+          return -1;
+      }
+    }
+
+    try {
+      for (let i = 0; i < uploadOfficeHour.slot.length; i++) {
+        await fetch("http://localhost:8080/api/officeHour/upload", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            "facultyName": uploadOfficeHour.facultyName,
+            "startDate": uploadOfficeHour.startDate,
+            "endDate": uploadOfficeHour.endDate,
+            "day": dayConverter(uploadOfficeHour.slot[i].day),
+            "startTime": uploadOfficeHour.slot[i].startTime,
+            "endTime": uploadOfficeHour.slot[i].endTime,
+            "courseDepartment": uploadOfficeHour.department,
+            "courseNumber": uploadOfficeHour.courseNumber,
+          })
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const isFormEmpty = () => {
+    return Object.values(uploadOfficeHour).some((value) => {
+      if (Array.isArray(value)) {
+        return value.some((item) => Object.values(item).some((val) => val === ""));
+      }
+      return value === "";
+    });
   }
 
   return (
@@ -91,7 +148,7 @@ const UploadPage = () => {
         />
 
         {uploadOfficeHour.slot.map((slot, index) => (
-          <div className="mb-6">
+          <div className="mb-6" key={index}>
             <div className="flex mb-4">
               <div className="flex w-full justify-between items-center">
                 <p>Office Hour slot #{index + 1}</p>
@@ -106,7 +163,6 @@ const UploadPage = () => {
             <div className="mb-4">
               <select
                 className="select select-bordered select-sm w-full max-w-xs"
-                defaultValue={"Monday"}
                 onChange={slotValueHandler(index, "day")}
                 value={slot.day}
               >
