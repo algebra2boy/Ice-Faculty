@@ -8,7 +8,7 @@ const NavBar = () => {
       <nav className="navbar bg-base-100">
         <div className="flex-1">
           <img src={logo} width={20} height={20}></img>
-          <p className="btn btn-ghost text-xl">iceFaculty</p>
+          <Link to="/home" className="btn btn-ghost text-xl">iceFaculty</Link>
         </div>
         <div className="flex-none">
           <ul className="menu menu-horizontal px-1">
