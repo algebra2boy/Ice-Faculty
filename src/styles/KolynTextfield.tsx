@@ -4,7 +4,8 @@ interface TextfieldProps {
   textfieldType: string;
   placeholder: string;
   value: string;
-  onChange: React.ChangeEventHandler<HTMLInputElement> | undefined
+  onChange: React.ChangeEventHandler<HTMLInputElement> | undefined;
+  name: string | undefined;
 }
 
 export const KolynTextfield = (props: TextfieldProps): ReactElement => {
@@ -17,6 +18,7 @@ export const KolynTextfield = (props: TextfieldProps): ReactElement => {
       className={style}
       value={props.value}
       onChange={props.onChange}
+      name={props.name}
     />
   );
 };

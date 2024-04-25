@@ -1,5 +1,6 @@
 import { departmentOptions } from '../models/departmentOptions';
 import { useState } from 'react';
+import { KolynTextfield } from '../styles';
 
 interface Slot {
   day: string;
@@ -50,17 +51,24 @@ const UploadPage = () => {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-200">
-      <div className="mx-auto w-1/3 bg-gray-100 p-6 rounded-lg shadow-lg flex flex-col gap-3.5 items-center">
-        {JSON.stringify(uploadOfficeHour)}
-        <select className="select select-bordered select-sm w-full max-w-xs" defaultValue={"DEFAULT"} onChange={valueHandler} name="department">
+    <div className="flex justify-center items-center min-h-screen">
+      <div className="w-[400px] md:w-[500px] lg:w-[600px] bg-mainColor p-6 rounded-lg shadow-lg flex flex-col gap-3.5 items-center">
+        {/*JSON.stringify(uploadOfficeHour)*/}
+
+        <select className="select select-bordered select-sm" defaultValue={"DEFAULT"} onChange={valueHandler} name="department">
           <option value="DEFAULT" disabled>Course Department</option>
           {departmentOptions.map((department, index) =>
             <option key={index} value={department}>{department}</option>)
           }
         </select>
-
-        <input type="text" placeholder="Course Number" className="input input-bordered w-full max-w-xs" onChange={valueHandler} name="courseNumber" />
+        
+        <KolynTextfield
+          textfieldType="text"
+          placeholder="Course Number"
+          value=''
+          onChange={valueHandler}
+          name="courseNumber"
+        />
 
         <DateTextField labelName="Start date" onChange={valueHandler} name="startDate" />
 
