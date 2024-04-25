@@ -9,8 +9,6 @@ const EditPage = () => {
   const { state } = useLocation();
   const officeHour = state.officeHour;
 
-  console.log(officeHour);
-
   const [uploadOfficeHour, setUploadOfficeHour] = useState<OfficeHour>(officeHour);
 
   const fetchHandler = async () => {

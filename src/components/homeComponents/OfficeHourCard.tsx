@@ -5,27 +5,6 @@ import { KolynButton } from "../../styles";
 const OfficeHourCard: React.FC<OfficeHour> = (props) => {
   const { id, department, courseNumber, startDate, endDate, slot } = props;
 
-  const dayConverter = (day: number) => {
-    switch (day) {
-      case 0:
-        return "Mon";
-      case 1:
-        return "Tue";
-      case 2:
-        return "Wed";
-      case 3:
-        return "Thu";
-      case 4:
-        return "Fri";
-      case 5:
-        return "Sat";
-      case 6:
-        return "Sun";
-      default:
-        break;
-    }
-  };
-
   return (
     <div className="card shadow-md border-4 min-w-[300px] max-w-[300px] m-4">
       <div className="card-body divide-y-2">
@@ -33,16 +12,15 @@ const OfficeHourCard: React.FC<OfficeHour> = (props) => {
         <DurationEntry start={startDate} end={endDate} />
       </div>
       <div className="card-body">
-        <h4 className="flex flex-row">
-          {/* {dayConverter(day) + ":" } */}
-          &nbsp;
-          {/* <DurationEntry start={startTime} end={endTime} /> */}
-        </h4>
+        {slot.map((s) => (
+          <h4 className="flex flex-row" key={s.day}>
+            {s.day + ":"}
+            &nbsp;
+            <DurationEntry start={s.startTime} end={s.endTime} />
+          </h4>
+        ))}
         <div className="flex flex-col items-center">
-          <Link to={`/edit/${id}`}
-            state={{
-              officeHour: props,
-            }}>
+          <Link to={`/edit/${id}`} state={{ officeHour: props }}>
             <KolynButton label="Edit" isResponsive={false} />
           </Link>
         </div>

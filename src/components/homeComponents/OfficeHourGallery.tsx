@@ -10,12 +10,39 @@ const OfficeHourGallery = () => {
       startDate: "2024-02-01",
       endDate: "2024-05-05",
       facultyName: "John Doe",
-      slot: [{
-        day: "Monday",
-        startTime: "12:00",
-        endTime: "13:00"
-      }]
+      slot: [
+        {
+          day: "Monday",
+          startTime: "12:00",
+          endTime: "13:00"
+        },
+        {
+          day: "Tuesday",
+          startTime: "11:00",
+          endTime: "12:00"
+        }
+      ]
     },
+    {
+      id: "1a2b3c4d-5e6f-7g8h-9i10j11k12l",
+      department: "COMP",
+      courseNumber: "101",
+      startDate: "2024-03-01",
+      endDate: "2024-06-05",
+      facultyName: "Jane Smith",
+      slot: [
+        {
+          day: "Wednesday",
+          startTime: "14:00",
+          endTime: "15:00"
+        },
+        {
+          day: "Thursday",
+          startTime: "13:00",
+          endTime: "14:00"
+        }
+      ]
+    }
   ];
 
   return (
