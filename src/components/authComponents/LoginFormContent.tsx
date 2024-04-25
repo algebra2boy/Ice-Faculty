@@ -2,7 +2,7 @@ import { LoginFormProps } from "../../models/auth.model";
 import { Link } from "react-router-dom";
 
 const LoginFormContent: React.FC<LoginFormProps> = (props: LoginFormProps) => {
-  const { name, password, valueChangeHandler } = props;
+  const { name, password, valueHandler } = props;
 
   return (
     <>
@@ -12,14 +12,16 @@ const LoginFormContent: React.FC<LoginFormProps> = (props: LoginFormProps) => {
         placeholder="Name"
         className="input input-bordered w-full"
         value={name}
-        onChange={(e) => valueChangeHandler(e, "name")}
+        onChange={valueHandler}
+        name="name"
       />
       <input
         type="password"
         placeholder="Password"
         className="input input-bordered w-full"
         value={password}
-        onChange={(e) => valueChangeHandler(e, "password")}
+        onChange={valueHandler}
+        name="password"
       />
       <div className="w-full flex space-x-4">
         <Link to="home">
