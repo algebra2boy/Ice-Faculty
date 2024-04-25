@@ -58,6 +58,7 @@ const UploadForm = (props: UploadFormProps) => {
 
   const clearFormHandler = () => {
     setUploadOfficeHour({
+      id: "",
       department: "",
       courseNumber: "",
       startDate: "",

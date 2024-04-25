@@ -6,6 +6,7 @@ import { dayConverter } from "../components/uploadComponents/UploadOHForm";
 const UploadPage = () => {
 
   const [uploadOfficeHour, setUploadOfficeHour] = useState<OfficeHour>({
+    id: "",
     department: "",
     courseNumber: "",
     startDate: "",
@@ -45,7 +46,6 @@ const UploadPage = () => {
 
   return (
     <div className="uploadpage">
-      {JSON.stringify(uploadOfficeHour)}
       <UploadForm 
         uploadOfficeHour={uploadOfficeHour} 
         setUploadOfficeHour={setUploadOfficeHour}
