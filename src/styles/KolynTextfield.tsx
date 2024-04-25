@@ -8,7 +8,7 @@ interface TextfieldProps {
 }
 
 export const KolynTextfield = (props: TextfieldProps): ReactElement => {
-  const style = "w-full rounded-none bg-primaryColor min-h-12 pl-4";
+  const style = "w-full rounded-none bg-primaryColor min-h-12 pl-4 focus:outline-mainColor";
 
   return (
     <input
