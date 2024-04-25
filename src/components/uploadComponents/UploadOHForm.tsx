@@ -1,27 +1,37 @@
 import { departmentOptions } from '../../models/departmentOptions';
-import { useState } from 'react';
+import { Slot, OfficeHour } from '../../models/officeHour.model';
 import { Link } from 'react-router-dom';
 
-interface Slot {
-  day: string;
-  startTime: string;
-  endTime: string;
+interface UploadFormProps {
+  uploadOfficeHour: OfficeHour;
+  setUploadOfficeHour: React.Dispatch<React.SetStateAction<OfficeHour>>;
+  fetchHandler: () => void;
 }
 
-const UploadForm = () => {
+export const dayConverter = (day: string): number => {
+  switch (day) {
+    case "Monday":
+      return 0;
+    case "Tuesday":
+      return 1;
+    case "Wednesday":
+      return 2;
+    case "Thursday":
+      return 3;
+    case "Friday":
+      return 4;
+    case "Saturday":
+      return 5;
+    case "Sunday":
+      return 6;
+    default:
+      return -1;
+  }
+}
 
-  const [uploadOfficeHour, setUploadOfficeHour] = useState({
-    department: "",
-    courseNumber: "",
-    startDate: "",
-    endDate: "",
-    facultyName: "",
-    slot: [{
-      day: "Monday",
-      startTime: "",
-      endTime: ""
-    }] as Slot[]
-  });
+const UploadForm = (props: UploadFormProps) => {
+
+  const { uploadOfficeHour, setUploadOfficeHour, fetchHandler } = props;
 
   const valueHandler = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = event.target;
@@ -68,49 +78,7 @@ const UploadForm = () => {
       return;
     }
 
-    const dayConverter = (day: string): number => {
-      switch (day) {
-        case "Monday":
-          return 0;
-        case "Tuesday":
-          return 1;
-        case "Wednesday":
-          return 2;
-        case "Thursday":
-          return 3;
-        case "Friday":
-          return 4;
-        case "Saturday":
-          return 5;
-        case "Sunday":
-          return 6;
-        default:
-          return -1;
-      }
-    }
-
-    try {
-      for (let i = 0; i < uploadOfficeHour.slot.length; i++) {
-        await fetch("http://localhost:8080/api/officeHour/upload", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            "facultyName": uploadOfficeHour.facultyName,
-            "startDate": uploadOfficeHour.startDate,
-            "endDate": uploadOfficeHour.endDate,
-            "day": dayConverter(uploadOfficeHour.slot[i].day),
-            "startTime": uploadOfficeHour.slot[i].startTime,
-            "endTime": uploadOfficeHour.slot[i].endTime,
-            "courseDepartment": uploadOfficeHour.department,
-            "courseNumber": uploadOfficeHour.courseNumber,
-          })
-        });
-      }
-    } catch (error) {
-      console.error(error);
-    }
+    fetchHandler();
 
     clearFormHandler();
   }
