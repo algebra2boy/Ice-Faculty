@@ -2,7 +2,6 @@ import UploadForm from "../components/uploadComponents/UploadOHForm";
 
 const UploadPage = () => {
   return (
-
     <div className="uploadpage">
       <UploadForm />
     </div>

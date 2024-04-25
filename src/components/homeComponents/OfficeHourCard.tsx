@@ -39,7 +39,7 @@ const OfficeHourCard: React.FC<OfficeHourInfo> = (props) => {
         <DurationEntry start={startTime} end={endTime} />
       </h4>
         <div className="flex flex-col items-center">
-          <Link to={`/officeHour/${id}`}>
+          <Link to={`/edit/${id}`}>
             <KolynButton label="Edit" isResponsive={false} />
           </Link>
         </div>
