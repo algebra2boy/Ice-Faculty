@@ -29,7 +29,7 @@ const SignupFormContent: React.FC<SignupLoginFormProps> = (props: SignupLoginFor
       <div className="basis-24" />
       <div className="flex flex-col space-y-4 items-center w-full">
         <Link to="/">
-          <KolynButton label="Sign Up" />
+          <KolynButton label="Sign Up" isResponsive={true} />
         </Link>
       </div>
     </>

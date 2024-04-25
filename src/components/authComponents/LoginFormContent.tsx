@@ -23,10 +23,10 @@ const LoginFormContent: React.FC<LoginFormProps> = (props: LoginFormProps) => {
       <div className="basis-24" />
       <div className="flex flex-col space-y-4 items-center w-full">
         <Link to="home">
-          <KolynButton label="Login" />
+          <KolynButton label="Login" isResponsive={true} />
         </Link>
         <Link to="signup">
-          <KolynButton label="Sign Up" />
+          <KolynButton label="Sign Up" isResponsive={true} />
         </Link>
       </div>
     </>
