@@ -1,36 +1,35 @@
 import { SignupLoginFormProps } from "../../models/auth.model";
 import { Link } from "react-router-dom";
+import { KolynTextfield, KolynButton, KolynH2Label } from "../../styles";
 
 const SignupFormContent: React.FC<SignupLoginFormProps> = (props: SignupLoginFormProps) => {
   const { name, password, confirmedPassword, valueChangeHandler } = props;
 
   return (
     <>
-      <h2 className=" text-2xl font-bold m-auto">Sign Up</h2>
-      <input
-        type="text"
+      <KolynH2Label label="Sign Up" />
+      <KolynTextfield
+        textfieldType="text"
         placeholder="Name"
-        className="input input-bordered w-full"
         value={name}
         onChange={(e) => valueChangeHandler(e, "name")}
       />
-      <input
-        type="password"
+      <KolynTextfield
+        textfieldType="password"
         placeholder="Password"
-        className="input input-bordered w-full"
         value={password}
         onChange={(e) => valueChangeHandler(e, "password")}
       />
-      <input
-        type="password"
+      <KolynTextfield
+        textfieldType="password"
         placeholder="Confirm password"
-        className="input input-bordered w-full"
         value={confirmedPassword}
         onChange={(e) => valueChangeHandler(e, "confirmedPassword")}
       />
-      <div className="w-full flex space-x-4">
+      <div className="basis-24" />
+      <div className="flex flex-col space-y-4 items-center w-full">
         <Link to="/">
-          <button className="btn">Sign Up</button>
+          <KolynButton label="Sign Up" />
         </Link>
       </div>
     </>

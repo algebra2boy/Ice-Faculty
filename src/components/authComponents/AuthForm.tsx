@@ -30,7 +30,11 @@ const AuthForm: React.FC<AuthProps> = ({ authType }) => {
     <form className="flex mx-auto w-1/3 p-6 bg-white">
       <div className="flex flex-col gap-4 w-full">
         {authType === "login" ? (
-          <LoginFormContent name={name} password={password} valueChangeHandler={valueChangeHandler} />
+          <LoginFormContent 
+            name={name} 
+            password={password} 
+            valueChangeHandler={valueChangeHandler}
+          />
         ) : (
           <SignupFormContent
             name={name}
