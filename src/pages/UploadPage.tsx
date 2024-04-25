@@ -52,7 +52,7 @@ const UploadPage = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <div className="w-[400px] md:w-[500px] lg:w-[600px] bg-mainColor p-6 rounded-lg shadow-lg flex flex-col gap-3.5 items-center">
+      <div className="w-[400px] md:w-[500px] lg:w-[600px] bg-disableColor p-6 rounded-lg shadow-lg flex flex-col gap-3.5 items-center">
         {/*JSON.stringify(uploadOfficeHour)*/}
 
         <select className="select select-bordered select-sm" defaultValue={"DEFAULT"} onChange={valueHandler} name="department">
@@ -65,7 +65,7 @@ const UploadPage = () => {
         <KolynTextfield
           textfieldType="text"
           placeholder="Course Number"
-          value=''
+          value={undefined}
           onChange={valueHandler}
           name="courseNumber"
         />
