@@ -1,4 +1,4 @@
-import { departmentOptions } from '../../models/departmentOptions';
+import { reverseDepartment, departmentOptions } from '../../models/departmentOptions';
 import { Slot, OfficeHour } from '../../models/officeHour.model';
 import { Link } from 'react-router-dom';
 
@@ -101,6 +101,8 @@ const UploadForm = (props: UploadFormProps) => {
           defaultValue={"DEFAULT"}
           onChange={valueHandler}
           name="department"
+          // @ts-ignore
+          value={reverseDepartment[uploadOfficeHour.department]}
         >
           <option value="DEFAULT" disabled>
             Course Department
@@ -118,11 +120,12 @@ const UploadForm = (props: UploadFormProps) => {
           className="input input-bordered w-full max-w-xs"
           onChange={valueHandler}
           name="courseNumber"
+          value={uploadOfficeHour.courseNumber}
         />
 
-        <DateTextField labelName="Start date" onChange={valueHandler} name="startDate" />
+        <DateTextField labelName="Start date" onChange={valueHandler} name="startDate" value={uploadOfficeHour.startDate} />
 
-        <DateTextField labelName="End date" onChange={valueHandler} name="endDate" />
+        <DateTextField labelName="End date" onChange={valueHandler} name="endDate" value={uploadOfficeHour.endDate} />
 
         <input
           type="text"
@@ -130,6 +133,7 @@ const UploadForm = (props: UploadFormProps) => {
           className="input input-bordered w-full max-w-xs"
           onChange={valueHandler}
           name="facultyName"
+          value={uploadOfficeHour.facultyName}
         />
 
         {uploadOfficeHour.slot.map((slot, index) => (
@@ -196,6 +200,7 @@ interface DateTextFieldProps {
   labelName: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   name: string;
+  value: string;
 }
 
 const DateTextField = (props: DateTextFieldProps) => {
@@ -204,7 +209,7 @@ const DateTextField = (props: DateTextFieldProps) => {
       <div className="label">
         <span className="label-text">{props.labelName}</span>
       </div>
-      <input type="date" placeholder="Date" className="input input-bordered w-full max-w-xs" onChange={props.onChange} name={props.name} />
+      <input type="date" placeholder="Date" className="input input-bordered w-full max-w-xs" onChange={props.onChange} name={props.name} value={props.value} />
     </label>
   );
 };

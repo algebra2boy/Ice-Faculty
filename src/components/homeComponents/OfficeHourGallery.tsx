@@ -25,7 +25,7 @@ const OfficeHourGallery = () => {
     },
     {
       id: "1a2b3c4d-5e6f-7g8h-9i10j11k12l",
-      department: "COMP",
+      department: "COMPSCI",
       courseNumber: "101",
       startDate: "2024-03-01",
       endDate: "2024-06-05",
