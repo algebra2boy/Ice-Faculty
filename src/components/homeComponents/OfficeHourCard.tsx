@@ -28,11 +28,11 @@ const OfficeHourCard: React.FC<OfficeHourInfo> = (props) => {
 
   return (
     <div className="card shadow-md border-4 min-w-[300px] max-w-[300px] m-4">
-      <div className="card-body divide-y-2">
+      <div className="card-body divide-y-2 pb-2">
         <h3 className="card-title text-3xl my-6 h-0.5 border-t-0 ">{courseDepartment + " " + courseNumber}</h3>
         <DurationEntry start={startDate} end={endDate} />
       </div>
-      <div className="card-body">
+      <div className="card-body pt-0">
       <h4 className="flex flex-row">
         {dayConverter(day) + ":" }
         &nbsp;
@@ -40,7 +40,7 @@ const OfficeHourCard: React.FC<OfficeHourInfo> = (props) => {
       </h4>
         <div className="flex flex-col items-center">
           <Link to={`/officeHour/${id}`}>
-            <KolynButton label="Edit" isResponsive={false} />
+            <KolynButton label="Edit" isResponsive={false} onClick={undefined}/>
           </Link>
         </div>
       </div>

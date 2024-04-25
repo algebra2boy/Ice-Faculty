@@ -9,10 +9,10 @@ interface TextfieldProps {
 }
 
 export const KolynTextfield = (props: TextfieldProps): ReactElement => {
-  const style = "w-full rounded-lg bg-base-100 min-h-12 pl-4 focus:outline-none";
+  const style = "w-full min-w-[20px] rounded-lg bg-base-100 min-h-12 pl-4 focus:outline-none";
 
   return (
-    <div className="border-4 rounded-lg">
+    <div className="w-full min-w-[200px] border-4 rounded-lg">
       <input
         type={props.textfieldType}
         placeholder={props.placeholder}

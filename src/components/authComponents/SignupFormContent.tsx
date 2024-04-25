@@ -8,31 +8,33 @@ const SignupFormContent: React.FC<SignupLoginFormProps> = (props: SignupLoginFor
   return (
     <>
       <KolynH2Label label="Sign Up" />
-      <KolynTextfield
-        textfieldType="text"
-        placeholder="Name"
-        value={name}
-        onChange={valueHandler}
-        name="name"
-      />
-      <KolynTextfield
-        textfieldType="password"
-        placeholder="Password"
-        value={password}
-        onChange={valueHandler}
-        name="password"
-      />
-      <KolynTextfield
-        textfieldType="password"
-        placeholder="Confirm password"
-        value={confirmedPassword}
-        onChange={valueHandler}
-        name="confirmedPassword"
-      />
+      <div className="flex flex-col items-center space-y-4 w-full">
+        <KolynTextfield
+          textfieldType="text"
+          placeholder="Name"
+          value={name}
+          onChange={valueHandler}
+          name="name"
+        />
+        <KolynTextfield
+          textfieldType="password"
+          placeholder="Password"
+          value={password}
+          onChange={valueHandler}
+          name="password"
+        />
+        <KolynTextfield
+          textfieldType="password"
+          placeholder="Confirm password"
+          value={confirmedPassword}
+          onChange={valueHandler}
+          name="confirmedPassword"
+        />
+      </div>
       <div className="basis-24" />
       <div className="flex flex-col space-y-4 items-center w-full">
         <Link to="/">
-          <KolynButton label="Sign Up" isResponsive={true} />
+          <KolynButton label="Sign Up" isResponsive={true} onClick={undefined} />
         </Link>
       </div>
     </>
