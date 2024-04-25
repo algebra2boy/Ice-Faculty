@@ -39,15 +39,15 @@ const DurationEntry: React.FC<DurationProps> = (props) => {
   return (
     <div>
       <h3 className="flex flex-row gap-x-1">
-        <h3 className="text-errorColor">
+        <span className="text-errorColor">
           {props.start}
-        </h3>
-        <h4 className="text-lg text-center text-disableColor">
+        </span>
+        <span className="text-lg text-center text-disableColor">
           ~
-        </h4>
-        <h3 className="text-checkBoxColor">
+        </span>
+        <span className="text-checkBoxColor">
           {props.end}
-        </h3>
+        </span>
       </h3>
     </div>
   );
