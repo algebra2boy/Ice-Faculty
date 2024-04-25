@@ -2,32 +2,6 @@ import { OfficeHourInfo } from "../../models/officeHour.model";
 import { Link } from "react-router-dom";
 import { KolynButton } from "../../styles";
 
-// A - B
-interface DurationProps {
-  start: string;
-  end: string;
-}
-
-const DurationEntry: React.FC<DurationProps> = (props) => {
-  return (
-    <div>
-      <h3 className="flex flex-row">
-        <h3 className="text-errorColor">
-          {props.start }
-        </h3>
-        <h3 className="text-disableColor">
-          &nbsp;
-          ~
-          &nbsp;
-        </h3>
-        <h3 className="text-checkBoxColor">
-          {props.end}
-        </h3>
-      </h3>
-    </div>
-  );
-}
-
 const OfficeHourCard: React.FC<OfficeHourInfo> = (props) => {
   const { id, startDate, endDate, day, startTime, endTime, courseDepartment, courseNumber } = props;
 
@@ -73,5 +47,31 @@ const OfficeHourCard: React.FC<OfficeHourInfo> = (props) => {
     </div>
   );
 };
+
+// A - B
+interface DurationProps {
+  start: string;
+  end: string;
+}
+
+const DurationEntry: React.FC<DurationProps> = (props) => {
+  return (
+    <div>
+      <h3 className="flex flex-row">
+        <h3 className="text-errorColor">
+          {props.start }
+        </h3>
+        <h3 className="text-disableColor">
+          &nbsp;
+          ~
+          &nbsp;
+        </h3>
+        <h3 className="text-checkBoxColor">
+          {props.end}
+        </h3>
+      </h3>
+    </div>
+  );
+}
 
 export default OfficeHourCard;
