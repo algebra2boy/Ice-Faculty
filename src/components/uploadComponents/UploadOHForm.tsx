@@ -125,8 +125,8 @@ const UploadForm = () => {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-200">
-      <div className="mx-auto w-1/3 bg-gray-100 p-6 rounded-lg shadow-lg flex flex-col gap-3.5 items-center">
+    <div className="flex justify-center items-center min-h-screen">
+      <div className="mx-auto w-1/3 bg-gray-100 p-6 rounded-lg shadow-lg flex flex-col gap-3.5 items-center border-black border-4">
         <select
           className="select select-bordered select-md w-full max-w-xs"
           defaultValue={"DEFAULT"}
