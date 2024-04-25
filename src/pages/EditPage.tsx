@@ -1,5 +1,9 @@
+import UploadForm from "../components/uploadComponents/UploadOHForm";
+
 const EditPage = () => {
-  return <div>This is Edit</div>;
+  return <div>
+    <UploadForm />
+  </div>;
 };
 
 export default EditPage;
