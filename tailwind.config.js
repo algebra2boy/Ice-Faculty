@@ -28,6 +28,15 @@ export default {
       checkBoxColor: palette.colorEmeraldGreen,
       errorColor: palette.colorScarletRed,
     },
+    screens: {
+      sm: '640px',
+      md: '768px',
+      twoCards: '950px',
+      lg: '1024px',
+      xl: '1280px',
+      threeCards: '1400px',
+      '2xl': '1536px',
+    },
   },
   plugins: [
     require('@tailwindcss/typography'),

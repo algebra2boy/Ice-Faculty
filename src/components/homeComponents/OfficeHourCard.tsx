@@ -1,5 +1,6 @@
 import { OfficeHourInfo } from "../../models/officeHour.model";
 import { Link } from "react-router-dom";
+import { KolynButton } from "../../styles";
 
 const OfficeHourCard: React.FC<OfficeHourInfo> = (props) => {
   const { id, startDate, endDate, day, startTime, endTime, courseDepartment, courseNumber } = props;
@@ -26,19 +27,49 @@ const OfficeHourCard: React.FC<OfficeHourInfo> = (props) => {
   };
 
   return (
-    <div className="card bg-gray-300 shadow-md">
+    <div className="card shadow-md border-4 min-w-[300px] max-w-[300px] m-4">
+      <div className="card-body divide-y-2">
+        <h3 className="card-title text-3xl my-6 h-0.5 border-t-0 ">{courseDepartment + " " + courseNumber}</h3>
+        <DurationEntry start={startDate} end={endDate} />
+      </div>
       <div className="card-body">
-        <h3 className="card-title">{courseDepartment + " " + courseNumber}</h3>
-        <h4 className="text-md">{startDate + " - " + endDate}</h4>
-        <h4 className="text-md">{dayConverter(day) + ": " + startTime + " - " + endTime}</h4>
-        <div className="card-actions justify-end">
+      <h4 className="flex flex-row">
+        {dayConverter(day) + ":" }
+        &nbsp;
+        <DurationEntry start={startTime} end={endTime} />
+      </h4>
+        <div className="flex flex-col items-center">
           <Link to={`/officeHour/${id}`}>
-            <button className="btn">Edit</button>
+            <KolynButton label="Edit" isResponsive={false} />
           </Link>
         </div>
       </div>
     </div>
   );
 };
+
+// A - B
+interface DurationProps {
+  start: string;
+  end: string;
+}
+
+const DurationEntry: React.FC<DurationProps> = (props) => {
+  return (
+    <div>
+      <h3 className="flex flex-row gap-x-1">
+        <h3 className="text-errorColor">
+          {props.start }
+        </h3>
+        <h4 className="text-lg text-center text-disableColor">
+          ~
+        </h4>
+        <h3 className="text-checkBoxColor">
+          {props.end}
+        </h3>
+      </h3>
+    </div>
+  );
+}
 
 export default OfficeHourCard;
