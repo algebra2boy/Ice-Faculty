@@ -1,6 +1,7 @@
 import { reverseDepartment, departmentOptions } from '../../models/departmentOptions';
 import { Slot, OfficeHour } from '../../models/officeHour.model';
 import { Link } from 'react-router-dom';
+import { KolynH2Label } from "../../styles";
 
 interface UploadFormProps {
   uploadOfficeHour: OfficeHour;
@@ -95,7 +96,10 @@ const UploadForm = (props: UploadFormProps) => {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-200">
-      <div className="mx-auto w-full w-1/3 bg-gray-100 p-6 rounded-lg shadow-lg flex flex-col gap-3.5 items-center">
+      <div className="mx-auto w-full w-1/3 bg-gray-100 p-6 rounded-lg flex flex-col gap-3.5 items-center">
+        
+        <KolynH2Label label="Upload Office Hour" />
+
         <select
           className="select select-bordered select-md w-full max-w-xs"
           onChange={valueHandler}
