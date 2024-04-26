@@ -50,6 +50,7 @@ const UploadPage = () => {
         uploadOfficeHour={uploadOfficeHour} 
         setUploadOfficeHour={setUploadOfficeHour}
         fetchHandler={fetchHandler}
+        isFromEditPage={false}
       />
     </div>
   );

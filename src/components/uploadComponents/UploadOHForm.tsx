@@ -7,6 +7,7 @@ interface UploadFormProps {
   uploadOfficeHour: OfficeHour;
   setUploadOfficeHour: React.Dispatch<React.SetStateAction<OfficeHour>>;
   fetchHandler: () => void;
+  isFromEditPage: boolean;
 }
 
 export const dayConverter = (day: string): number => {
@@ -32,7 +33,7 @@ export const dayConverter = (day: string): number => {
 
 const UploadForm = (props: UploadFormProps) => {
 
-  const { uploadOfficeHour, setUploadOfficeHour, fetchHandler } = props;
+  const { uploadOfficeHour, setUploadOfficeHour, fetchHandler, isFromEditPage } = props;
 
   const valueHandler = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = event.target;
@@ -97,8 +98,8 @@ const UploadForm = (props: UploadFormProps) => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-200">
       <div className="mx-auto w-full w-1/3 bg-gray-100 p-6 rounded-lg flex flex-col gap-3.5 items-center">
-        
-        <KolynH2Label label="Upload Office Hour" />
+
+        <KolynH2Label label={isFromEditPage ? "Edit Office Hour" : "Upload Office Hour"} />
 
         <select
           className="select select-bordered select-md w-full max-w-xs"
