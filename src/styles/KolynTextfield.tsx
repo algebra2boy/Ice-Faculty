@@ -24,3 +24,20 @@ export const KolynTextfield = (props: TextfieldProps): ReactElement => {
     </div>
   );
 };
+
+export const KolynTextfield2 = (props: TextfieldProps): ReactElement => {
+  const style = "input input-bordered w-full max-w-xs border-4";
+
+  return (
+    <div className="">
+      <input
+        type={props.textfieldType}
+        placeholder={props.placeholder}
+        className={style}
+        value={props.value}
+        onChange={props.onChange}
+        name={props.name}
+      />
+    </div>
+  );
+};
