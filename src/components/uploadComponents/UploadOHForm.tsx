@@ -128,7 +128,7 @@ const UploadForm = (props: UploadFormProps) => {
         <KolynTextfield
           textfieldType="text"
           placeholder="Faculty Name"
-          value={undefined}
+          value={uploadOfficeHour.facultyName}
           onChange={valueHandler}
           name="facultyName"
         />
