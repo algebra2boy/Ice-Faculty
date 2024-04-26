@@ -40,7 +40,12 @@ const OfficeHourCard: React.FC<OfficeHourInfo> = (props) => {
       </h4>
         <div className="flex flex-col items-center">
           <Link to={`/officeHour/${id}`}>
-            <KolynButton label="Edit" isResponsive={false} onClick={undefined}/>
+            <KolynButton 
+              label="Edit" 
+              isResponsive={false} 
+              onClick={undefined} 
+              bgColor="bg-mainColor" 
+            />
           </Link>
         </div>
       </div>
@@ -57,7 +62,7 @@ interface DurationProps {
 const DurationEntry: React.FC<DurationProps> = (props) => {
   return (
     <div>
-      <h3 className="flex flex-row gap-x-1">
+      <div className="flex flex-row gap-x-1">
         <h3 className="text-errorColor">
           {props.start }
         </h3>
@@ -67,7 +72,7 @@ const DurationEntry: React.FC<DurationProps> = (props) => {
         <h3 className="text-checkBoxColor">
           {props.end}
         </h3>
-      </h3>
+      </div>
     </div>
   );
 }

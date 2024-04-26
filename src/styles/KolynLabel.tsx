@@ -4,7 +4,7 @@ interface LabelProps {
   label: string;
 }
 
-export const KolynH2Label = (props: LabelProps): ReactElement => {
+export const KolynLabel = (props: LabelProps): ReactElement => {
   const style = `text-2xl font-bold m-auto`;
 
   return (

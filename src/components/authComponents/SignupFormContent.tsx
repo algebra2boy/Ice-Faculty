@@ -1,13 +1,13 @@
 import { SignupLoginFormProps } from "../../models/auth.model";
 import { Link } from "react-router-dom";
-import { KolynTextfield, KolynButton, KolynH2Label } from "../../styles";
+import { KolynTextfield, KolynButton, KolynLabel } from "../../styles";
 
 const SignupFormContent: React.FC<SignupLoginFormProps> = (props: SignupLoginFormProps) => {
   const { name, password, confirmedPassword, valueHandler } = props;
 
   return (
     <>
-      <KolynH2Label label="Sign Up" />
+      <KolynLabel label="Sign Up" />
       <div className="flex flex-col items-center space-y-4 w-full">
         <KolynTextfield
           textfieldType="text"
@@ -34,7 +34,12 @@ const SignupFormContent: React.FC<SignupLoginFormProps> = (props: SignupLoginFor
       <div className="basis-24" />
       <div className="flex flex-col space-y-4 items-center w-full">
         <Link to="/">
-          <KolynButton label="Sign Up" isResponsive={true} onClick={undefined} />
+          <KolynButton 
+            label="Sign Up" 
+            isResponsive={true} 
+            onClick={undefined} 
+            bgColor="bg-mainColor"
+          />
         </Link>
       </div>
     </>

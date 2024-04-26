@@ -171,7 +171,14 @@ const UploadForm = () => {
             <div className="flex mb-4">
               <div className="flex w-full justify-between items-center">
                 <p>Office Hour slot #{index + 1}</p>
-                {index !== 0 && (<KolynButton label="Delete Slot" isResponsive={false} onClick={() => deleteSlotHandler(index)}/>)}
+                {index !== 0 && (
+                  <KolynButton 
+                    label="Delete Slot" 
+                    isResponsive={false} 
+                    onClick={() => deleteSlotHandler(index)}
+                    bgColor="bg-errorColor"
+                  />
+                )}
               </div>
             </div>
 
@@ -207,13 +214,28 @@ const UploadForm = () => {
         ))}
 
         <div className="flex flex-col gap-4">
-          <KolynButton label="Add more slot" isResponsive={false} onClick={addSlotHandler}/>
+          <KolynButton 
+            label="Add more slot" 
+            isResponsive={false} 
+            onClick={addSlotHandler} 
+            bgColor="bg-checkBoxColor" 
+          />
           
           <Link to="/home">
-            <KolynButton label="Cancel" isResponsive={false} onClick={undefined}/>
+            <KolynButton 
+              label="Cancel" 
+              isResponsive={false} 
+              onClick={undefined} 
+              bgColor="bg-errorColor" 
+            />
           </Link>
 
-          <KolynButton label="Submit" isResponsive={false} onClick={submitHandler}/>
+          <KolynButton 
+            label="Submit" 
+            isResponsive={false} 
+            onClick={submitHandler} 
+            bgColor="bg-mainColor" 
+          />
         </div>
       </div>
     </div>
@@ -232,7 +254,12 @@ const DateTextField = (props: DateTextFieldProps) => {
       <div className="label">
         <span className="label-text">{props.labelName}</span>
       </div>
-      <input type="date" placeholder="Date" className="input input-bordered w-full max-w-xs border-4" onChange={props.onChange} name={props.name} />
+      <input 
+        type="date" 
+        placeholder="Date" 
+        className="input input-bordered w-full max-w-xs border-4" 
+        onChange={props.onChange} name={props.name} 
+      />
     </label>
   );
 };
