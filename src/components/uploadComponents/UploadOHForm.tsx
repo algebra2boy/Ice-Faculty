@@ -1,29 +1,41 @@
-import { departmentOptions } from '../../models/departmentOptions';
-import { useState } from 'react';
+import { reverseDepartment, departmentOptions } from '../../models/departmentOptions';
+import { Slot, OfficeHour } from '../../models/officeHour.model';
 import { Link } from 'react-router-dom';
 import { KolynTextfield } from '../../styles';
 import { KolynButton } from '../../styles';
 
-interface Slot {
-  day: string;
-  startTime: string;
-  endTime: string;
+interface UploadFormProps {
+  uploadOfficeHour: OfficeHour;
+  setUploadOfficeHour: React.Dispatch<React.SetStateAction<OfficeHour>>;
+  fetchHandler: () => void;
+  isFromEditPage: boolean;
 }
 
-const UploadForm = () => {
+// TODO: Why is this here?
+export const dayConverter = (day: string): number => {
+  switch (day) {
+    case "Monday":
+      return 0;
+    case "Tuesday":
+      return 1;
+    case "Wednesday":
+      return 2;
+    case "Thursday":
+      return 3;
+    case "Friday":
+      return 4;
+    case "Saturday":
+      return 5;
+    case "Sunday":
+      return 6;
+    default:
+      return -1;
+  }
+}
 
-  const [uploadOfficeHour, setUploadOfficeHour] = useState({
-    department: "",
-    courseNumber: "",
-    startDate: "",
-    endDate: "",
-    facultyName: "",
-    slot: [{
-      day: "Monday",
-      startTime: "",
-      endTime: ""
-    }] as Slot[]
-  });
+const UploadForm = (props: UploadFormProps) => {
+
+  const { uploadOfficeHour, setUploadOfficeHour, fetchHandler } = props;
 
   const valueHandler = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = event.target;
@@ -50,6 +62,7 @@ const UploadForm = () => {
 
   const clearFormHandler = () => {
     setUploadOfficeHour({
+      id: "",
       department: "",
       courseNumber: "",
       startDate: "",
@@ -70,49 +83,7 @@ const UploadForm = () => {
       return;
     }
 
-    const dayConverter = (day: string): number => {
-      switch (day) {
-        case "Monday":
-          return 0;
-        case "Tuesday":
-          return 1;
-        case "Wednesday":
-          return 2;
-        case "Thursday":
-          return 3;
-        case "Friday":
-          return 4;
-        case "Saturday":
-          return 5;
-        case "Sunday":
-          return 6;
-        default:
-          return -1;
-      }
-    }
-
-    try {
-      for (let i = 0; i < uploadOfficeHour.slot.length; i++) {
-        await fetch("http://localhost:8080/api/officeHour/upload", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            "facultyName": uploadOfficeHour.facultyName,
-            "startDate": uploadOfficeHour.startDate,
-            "endDate": uploadOfficeHour.endDate,
-            "day": dayConverter(uploadOfficeHour.slot[i].day),
-            "startTime": uploadOfficeHour.slot[i].startTime,
-            "endTime": uploadOfficeHour.slot[i].endTime,
-            "courseDepartment": uploadOfficeHour.department,
-            "courseNumber": uploadOfficeHour.courseNumber,
-          })
-        });
-      }
-    } catch (error) {
-      console.error(error);
-    }
+    fetchHandler();
 
     clearFormHandler();
   }
@@ -134,6 +105,7 @@ const UploadForm = () => {
           defaultValue={"DEFAULT"}
           onChange={valueHandler}
           name="department"
+          value={reverseDepartment[uploadOfficeHour.department as keyof typeof reverseDepartment]}
         >
           <option value="DEFAULT" disabled>
             Select Course Department
@@ -148,7 +120,7 @@ const UploadForm = () => {
         <KolynTextfield
           textfieldType="text"
           placeholder="Course Number"
-          value={undefined}
+          value={uploadOfficeHour.courseNumber}
           onChange={valueHandler}
           name="courseNumber"
         />
@@ -161,9 +133,9 @@ const UploadForm = () => {
           name="facultyName"
         />
 
-        <DateTextField labelName="Start date" onChange={valueHandler} name="startDate" />
+        <DateTextField labelName="Start date" onChange={valueHandler} name="startDate" value={uploadOfficeHour.startDate}/>
 
-        <DateTextField labelName="End date" onChange={valueHandler} name="endDate" />
+        <DateTextField labelName="End date" onChange={valueHandler} name="endDate" value={uploadOfficeHour.endDate} />
         <div className="h-2" />
 
         {uploadOfficeHour.slot.map((slot, index) => (
@@ -246,6 +218,7 @@ interface DateTextFieldProps {
   labelName: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   name: string;
+  value: string;
 }
 
 const DateTextField = (props: DateTextFieldProps) => {
@@ -259,6 +232,7 @@ const DateTextField = (props: DateTextFieldProps) => {
         placeholder="Date" 
         className="input input-bordered w-full max-w-xs border-4" 
         onChange={props.onChange} name={props.name} 
+        value={props.value}
       />
     </label>
   );
