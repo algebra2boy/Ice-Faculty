@@ -1,12 +1,15 @@
-export interface OfficeHourInfo {
-  id: string;
-  facultyName: string;
-  startDate: string;
-  endDate: string;
-  day: number;
+export interface Slot {
+  day: string;
   startTime: string;
   endTime: string;
-  courseDepartment: string;
-  courseNumber: string;
 }
 
+export interface OfficeHour {
+  id: string;
+  department: string;
+  courseNumber: string;
+  startDate: string;
+  endDate: string;
+  facultyName: string;
+  slot: Slot[];
+}

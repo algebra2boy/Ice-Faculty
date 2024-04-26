@@ -1,27 +1,41 @@
-import { departmentOptions } from '../../models/departmentOptions';
-import { useState } from 'react';
+import { reverseDepartment, departmentOptions } from '../../models/departmentOptions';
+import { Slot, OfficeHour } from '../../models/officeHour.model';
 import { Link } from 'react-router-dom';
+import { KolynTextfield } from '../../styles';
+import { KolynButton } from '../../styles';
 
-interface Slot {
-  day: string;
-  startTime: string;
-  endTime: string;
+interface UploadFormProps {
+  uploadOfficeHour: OfficeHour;
+  setUploadOfficeHour: React.Dispatch<React.SetStateAction<OfficeHour>>;
+  fetchHandler: () => void;
+  isFromEditPage: boolean;
 }
 
-const UploadForm = () => {
+// TODO: Why is this here?
+export const dayConverter = (day: string): number => {
+  switch (day) {
+    case "Monday":
+      return 0;
+    case "Tuesday":
+      return 1;
+    case "Wednesday":
+      return 2;
+    case "Thursday":
+      return 3;
+    case "Friday":
+      return 4;
+    case "Saturday":
+      return 5;
+    case "Sunday":
+      return 6;
+    default:
+      return -1;
+  }
+}
 
-  const [uploadOfficeHour, setUploadOfficeHour] = useState({
-    department: "",
-    courseNumber: "",
-    startDate: "",
-    endDate: "",
-    facultyName: "",
-    slot: [{
-      day: "Monday",
-      startTime: "",
-      endTime: ""
-    }] as Slot[]
-  });
+const UploadForm = (props: UploadFormProps) => {
+
+  const { uploadOfficeHour, setUploadOfficeHour, fetchHandler } = props;
 
   const valueHandler = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = event.target;
@@ -48,6 +62,7 @@ const UploadForm = () => {
 
   const clearFormHandler = () => {
     setUploadOfficeHour({
+      id: "",
       department: "",
       courseNumber: "",
       startDate: "",
@@ -68,49 +83,7 @@ const UploadForm = () => {
       return;
     }
 
-    const dayConverter = (day: string): number => {
-      switch (day) {
-        case "Monday":
-          return 0;
-        case "Tuesday":
-          return 1;
-        case "Wednesday":
-          return 2;
-        case "Thursday":
-          return 3;
-        case "Friday":
-          return 4;
-        case "Saturday":
-          return 5;
-        case "Sunday":
-          return 6;
-        default:
-          return -1;
-      }
-    }
-
-    try {
-      for (let i = 0; i < uploadOfficeHour.slot.length; i++) {
-        await fetch("http://localhost:8080/api/officeHour/upload", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            "facultyName": uploadOfficeHour.facultyName,
-            "startDate": uploadOfficeHour.startDate,
-            "endDate": uploadOfficeHour.endDate,
-            "day": dayConverter(uploadOfficeHour.slot[i].day),
-            "startTime": uploadOfficeHour.slot[i].startTime,
-            "endTime": uploadOfficeHour.slot[i].endTime,
-            "courseDepartment": uploadOfficeHour.department,
-            "courseNumber": uploadOfficeHour.courseNumber,
-          })
-        });
-      }
-    } catch (error) {
-      console.error(error);
-    }
+    fetchHandler();
 
     clearFormHandler();
   }
@@ -125,16 +98,17 @@ const UploadForm = () => {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-200">
-      <div className="mx-auto w-1/3 bg-gray-100 p-6 rounded-lg shadow-lg flex flex-col gap-3.5 items-center">
+    <div className="flex justify-center items-center min-h-screen">
+      <div className="mx-auto w-[400px] p-6 rounded-lg shadow-lg flex flex-col gap-3.5 items-center border-black border-4">
         <select
-          className="select select-bordered select-md w-full max-w-xs"
+          className="select select-bordered select-sm w-full max-w-xs w-full border-4 max-w-xs bg-base-100 h-10"
           defaultValue={"DEFAULT"}
           onChange={valueHandler}
           name="department"
+          value={reverseDepartment[uploadOfficeHour.department as keyof typeof reverseDepartment]}
         >
           <option value="DEFAULT" disabled>
-            Course Department
+            Select Course Department
           </option>
           {departmentOptions.map((department, index) => (
             <option key={index} value={department}>
@@ -143,42 +117,46 @@ const UploadForm = () => {
           ))}
         </select>
 
-        <input
-          type="text"
+        <KolynTextfield
+          textfieldType="text"
           placeholder="Course Number"
-          className="input input-bordered w-full max-w-xs"
+          value={uploadOfficeHour.courseNumber}
           onChange={valueHandler}
           name="courseNumber"
         />
 
-        <DateTextField labelName="Start date" onChange={valueHandler} name="startDate" />
-
-        <DateTextField labelName="End date" onChange={valueHandler} name="endDate" />
-
-        <input
-          type="text"
+        <KolynTextfield
+          textfieldType="text"
           placeholder="Faculty Name"
-          className="input input-bordered w-full max-w-xs"
+          value={undefined}
           onChange={valueHandler}
           name="facultyName"
         />
 
+        <DateTextField labelName="Start date" onChange={valueHandler} name="startDate" value={uploadOfficeHour.startDate}/>
+
+        <DateTextField labelName="End date" onChange={valueHandler} name="endDate" value={uploadOfficeHour.endDate} />
+        <div className="h-2" />
+
         {uploadOfficeHour.slot.map((slot, index) => (
-          <div className="mb-6" key={index}>
+          <div className="flex w-full flex-col items-center border-4 rounded-lg p-6 mb-6" key={index}>
             <div className="flex mb-4">
               <div className="flex w-full justify-between items-center">
                 <p>Office Hour slot #{index + 1}</p>
                 {index !== 0 && (
-                  <button className="btn btn-error btn-sm" onClick={() => deleteSlotHandler(index)}>
-                    Delete Slot
-                  </button>
+                  <KolynButton 
+                    label="Delete Slot" 
+                    isResponsive={false} 
+                    onClick={() => deleteSlotHandler(index)}
+                    bgColor="bg-errorColor"
+                  />
                 )}
               </div>
             </div>
 
-            <div className="mb-4">
+            <div className="mb-4 w-full">
               <select
-                className="select select-bordered select-sm w-full max-w-xs"
+                className="select select-bordered select-sm w-full max-w-xs w-full border-4 max-w-xs bg-base-100 h-10"
                 onChange={slotValueHandler(index, "day")}
                 value={slot.day}
               >
@@ -190,16 +168,16 @@ const UploadForm = () => {
               </select>
             </div>
 
-            <div className="flex gap-2 mb-">
+            <div className="flex gap-2 mb- w-full">
               <input
                 type="time"
-                className="input input-bordered w-full max-w-xs"
+                className="input input-bordered border-4 w-full max-w-xs"
                 onChange={slotValueHandler(index, "startTime")}
                 value={slot.startTime}
               />
               <input
                 type="time"
-                className="input input-bordered w-full max-w-xs"
+                className="input input-bordered border-4 w-full max-w-xs"
                 onChange={slotValueHandler(index, "endTime")}
                 value={slot.endTime}
               />
@@ -207,16 +185,29 @@ const UploadForm = () => {
           </div>
         ))}
 
-        <div className="flex justify-between gap-4">
-          <button className="btn btn-sm" onClick={addSlotHandler}>
-            Add more slot
-          </button>
+        <div className="flex flex-col gap-4">
+          <KolynButton 
+            label="Add more slot" 
+            isResponsive={false} 
+            onClick={addSlotHandler} 
+            bgColor="bg-checkBoxColor" 
+          />
+          
           <Link to="/home">
-            <button className="btn btn-sm btn-warning">Cancel</button>
+            <KolynButton 
+              label="Cancel" 
+              isResponsive={false} 
+              onClick={undefined} 
+              bgColor="bg-errorColor" 
+            />
           </Link>
-          <button className="btn btn-sm btn-info" onClick={submitHandler}>
-            Submit
-          </button>
+
+          <KolynButton 
+            label="Submit" 
+            isResponsive={false} 
+            onClick={submitHandler} 
+            bgColor="bg-mainColor" 
+          />
         </div>
       </div>
     </div>
@@ -227,6 +218,7 @@ interface DateTextFieldProps {
   labelName: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   name: string;
+  value: string;
 }
 
 const DateTextField = (props: DateTextFieldProps) => {
@@ -235,7 +227,13 @@ const DateTextField = (props: DateTextFieldProps) => {
       <div className="label">
         <span className="label-text">{props.labelName}</span>
       </div>
-      <input type="date" placeholder="Date" className="input input-bordered w-full max-w-xs" onChange={props.onChange} name={props.name} />
+      <input 
+        type="date" 
+        placeholder="Date" 
+        className="input input-bordered w-full max-w-xs border-4" 
+        onChange={props.onChange} name={props.name} 
+        value={props.value}
+      />
     </label>
   );
 };
