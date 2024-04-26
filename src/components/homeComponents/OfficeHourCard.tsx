@@ -11,7 +11,7 @@ const OfficeHourCard: React.FC<OfficeHour> = (props) => {
           <h3 className="card-title text-3xl my-6 h-0.5 border-t-0 ">{department + " " + courseNumber}</h3>
           <DurationEntry start={startDate} end={endDate} />
         </div>
-        <div className="card-body">
+        <div className="card-body pt-0">
           {slot.map((s) => (
             <h4 className="flex flex-row" key={s.day}>
               {s.day + ":"}
