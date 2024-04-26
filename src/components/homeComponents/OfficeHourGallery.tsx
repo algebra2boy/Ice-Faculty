@@ -46,7 +46,7 @@ const OfficeHourGallery = () => {
   ];
 
   return (
-    <div className="container w-full mx-auto p-8">
+    <div className="container w-full mx-auto p-10">
       <div className="grid grid-cols-1 twoCards:grid-cols-2 threeCards:grid-cols-3 gap-8">
         {tempOfficeHours.map((officeHour: OfficeHour, i: number) => {
           return <OfficeHourCard key={i} {...officeHour} />;

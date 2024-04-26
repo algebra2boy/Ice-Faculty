@@ -95,7 +95,7 @@ const UploadForm = (props: UploadFormProps) => {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-200">
-      <div className="mx-auto w-1/3 bg-gray-100 p-6 rounded-lg shadow-lg flex flex-col gap-3.5 items-center">
+      <div className="mx-auto w-full w-1/3 bg-gray-100 p-6 rounded-lg shadow-lg flex flex-col gap-3.5 items-center">
         <select
           className="select select-bordered select-md w-full max-w-xs"
           onChange={valueHandler}
