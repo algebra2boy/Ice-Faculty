@@ -4,22 +4,17 @@ import { OfficeHour } from "../../models/officeHour.model";
 const OfficeHourGallery = () => {
   const tempOfficeHours: OfficeHour[] = [
     {
-      id: "0c9d52a7-ec28-4bb9-8967-33af44b59508",
-      department: "NUTR",
-      courseNumber: "130",
-      startDate: "2024-02-01",
-      endDate: "2024-05-05",
-      facultyName: "John Doe",
+      id: "2e65e8f0-f5a4-476e-b4c0-c07b87efb86e",
+      department: "ACCTG",
+      courseNumber: "230",
+      startDate: "2024-04-02",
+      endDate: "2024-04-18",
+      facultyName: "Yongye Tan",
       slot: [
         {
           day: "Monday",
-          startTime: "12:00",
-          endTime: "13:00"
-        },
-        {
-          day: "Tuesday",
-          startTime: "11:00",
-          endTime: "12:00"
+          startTime: "13:30",
+          endTime: "14:30"
         }
       ]
     },
