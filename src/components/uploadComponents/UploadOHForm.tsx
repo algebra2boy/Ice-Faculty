@@ -1,7 +1,7 @@
 import { reverseDepartment, departmentOptions } from '../../models/departmentOptions';
 import { Slot, OfficeHour } from '../../models/officeHour.model';
 import { Link } from 'react-router-dom';
-import { KolynTextfield } from '../../styles';
+import { KolynTextfield2 } from '../../styles';
 import { KolynButton } from '../../styles';
 
 interface UploadFormProps {
@@ -117,7 +117,7 @@ const UploadForm = (props: UploadFormProps) => {
           ))}
         </select>
 
-        <KolynTextfield
+        <KolynTextfield2
           textfieldType="text"
           placeholder="Course Number"
           value={uploadOfficeHour.courseNumber}
@@ -125,7 +125,7 @@ const UploadForm = (props: UploadFormProps) => {
           name="courseNumber"
         />
 
-        <KolynTextfield
+        <KolynTextfield2
           textfieldType="text"
           placeholder="Faculty Name"
           value={uploadOfficeHour.facultyName}
