@@ -14,12 +14,13 @@ const EditPage = () => {
   const fetchHandler = async () => {
     try {
       for (let i = 0; i < uploadOfficeHour.slot.length; i++) {
-        await fetch("supbaby", {
+        await fetch("http://localhost:8080/api/officeHour/edit", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
+            "id": uploadOfficeHour.id,
             "facultyName": uploadOfficeHour.facultyName,
             "startDate": uploadOfficeHour.startDate,
             "endDate": uploadOfficeHour.endDate,
@@ -31,8 +32,10 @@ const EditPage = () => {
           })
         });
       }
+      return true;
     } catch (error) {
       console.error(error);
+      return false;
     }
   }
 

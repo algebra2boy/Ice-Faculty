@@ -108,12 +108,11 @@ const UploadForm = (props: UploadFormProps) => {
       <div className="mx-auto w-[400px] p-6 rounded-lg shadow-lg flex flex-col gap-3.5 items-center border-black border-4">
         <select
           className="select select-bordered select-sm w-full border-4 max-w-xs bg-base-100 h-10"
-          defaultValue={"DEFAULT"}
           onChange={valueHandler}
           name="department"
           value={reverseDepartment[uploadOfficeHour.department as keyof typeof reverseDepartment]}
         >
-          <option value="DEFAULT" disabled>
+          <option value="Select Course Department" disabled>
             Select Course Department
           </option>
           {departmentOptions.map((department, index) => (
