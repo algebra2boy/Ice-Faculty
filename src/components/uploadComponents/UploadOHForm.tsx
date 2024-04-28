@@ -50,7 +50,7 @@ const UploadForm = (props: UploadFormProps) => {
 
   const addSlotHandler = () => {
     const newSlots = [...uploadOfficeHour.slot];
-    newSlots.push({ day: "Monday", startTime: "", endTime: "" });
+    newSlots.push({ id: "defaultID", day: "Monday", startTime: "", endTime: "" });
     setUploadOfficeHour({ ...uploadOfficeHour, slot: newSlots });
   }
 
@@ -62,13 +62,13 @@ const UploadForm = (props: UploadFormProps) => {
 
   const clearFormHandler = () => {
     setUploadOfficeHour({
-      id: "",
       department: "",
       courseNumber: "",
       startDate: "",
       endDate: "",
       facultyName: "",
       slot: [{
+        id: "defaultID",
         day: "Monday",
         startTime: "",
         endTime: ""
@@ -94,8 +94,8 @@ const UploadForm = (props: UploadFormProps) => {
   }
 
   const isFormEmpty = () => {
-    const { id, ...officeHour } = uploadOfficeHour;
-    return Object.values(officeHour).some((value) => {
+    console.log(uploadOfficeHour);
+    return Object.values(uploadOfficeHour).some((value) => {
       if (Array.isArray(value)) {
         return value.some((item) => Object.values(item).some((val) => val === ""));
       }

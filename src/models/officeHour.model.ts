@@ -1,11 +1,11 @@
 export interface Slot {
+  id: string;
   day: string;
   startTime: string;
   endTime: string;
 }
 
 export interface OfficeHour {
-  id: string;
   department: string;
   courseNumber: string;
   startDate: string;

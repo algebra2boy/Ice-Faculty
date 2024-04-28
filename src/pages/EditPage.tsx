@@ -14,13 +14,14 @@ const EditPage = () => {
   const fetchHandler = async () => {
     try {
       for (let i = 0; i < uploadOfficeHour.slot.length; i++) {
+        console.log(uploadOfficeHour.department);
         const response = await fetch("http://localhost:8080/api/officeHour/edit", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            "id": uploadOfficeHour.id,
+            "id": uploadOfficeHour.slot[i].id,
             "facultyName": uploadOfficeHour.facultyName,
             "startDate": uploadOfficeHour.startDate,
             "endDate": uploadOfficeHour.endDate,
