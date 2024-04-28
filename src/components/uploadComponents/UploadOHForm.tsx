@@ -7,7 +7,7 @@ import { KolynButton } from '../../styles';
 interface UploadFormProps {
   uploadOfficeHour: OfficeHour;
   setUploadOfficeHour: React.Dispatch<React.SetStateAction<OfficeHour>>;
-  fetchHandler: () => void;
+  fetchHandler: () => Promise<boolean | undefined>;
   isFromEditPage: boolean;
 }
 
@@ -83,13 +83,19 @@ const UploadForm = (props: UploadFormProps) => {
       return;
     }
 
-    fetchHandler();
+    const result = await fetchHandler();
+
+    if (result === false || result === undefined) {
+      alert("Error uploading office hour");
+      return;
+    }
 
     clearFormHandler();
   }
 
   const isFormEmpty = () => {
-    return Object.values(uploadOfficeHour).some((value) => {
+    const { id, ...officeHour } = uploadOfficeHour;
+    return Object.values(officeHour).some((value) => {
       if (Array.isArray(value)) {
         return value.some((item) => Object.values(item).some((val) => val === ""));
       }
@@ -101,7 +107,7 @@ const UploadForm = (props: UploadFormProps) => {
     <div className="flex justify-center items-center min-h-screen">
       <div className="mx-auto w-[400px] p-6 rounded-lg shadow-lg flex flex-col gap-3.5 items-center border-black border-4">
         <select
-          className="select select-bordered select-sm w-full max-w-xs w-full border-4 max-w-xs bg-base-100 h-10"
+          className="select select-bordered select-sm w-full border-4 max-w-xs bg-base-100 h-10"
           defaultValue={"DEFAULT"}
           onChange={valueHandler}
           name="department"
@@ -133,7 +139,7 @@ const UploadForm = (props: UploadFormProps) => {
           name="facultyName"
         />
 
-        <DateTextField labelName="Start date" onChange={valueHandler} name="startDate" value={uploadOfficeHour.startDate}/>
+        <DateTextField labelName="Start date" onChange={valueHandler} name="startDate" value={uploadOfficeHour.startDate} />
 
         <DateTextField labelName="End date" onChange={valueHandler} name="endDate" value={uploadOfficeHour.endDate} />
         <div className="h-2" />
@@ -144,9 +150,9 @@ const UploadForm = (props: UploadFormProps) => {
               <div className="flex w-full justify-between items-center">
                 <p>Office Hour slot #{index + 1}</p>
                 {index !== 0 && (
-                  <KolynButton 
-                    label="Delete Slot" 
-                    isResponsive={false} 
+                  <KolynButton
+                    label="Delete Slot"
+                    isResponsive={false}
                     onClick={() => deleteSlotHandler(index)}
                     bgColor="bg-errorColor"
                   />
@@ -156,7 +162,7 @@ const UploadForm = (props: UploadFormProps) => {
 
             <div className="mb-4 w-full">
               <select
-                className="select select-bordered select-sm w-full max-w-xs w-full border-4 max-w-xs bg-base-100 h-10"
+                className="select select-bordered select-sm w-full border-4 max-w-xs bg-base-100 h-10"
                 onChange={slotValueHandler(index, "day")}
                 value={slot.day}
               >
@@ -186,27 +192,27 @@ const UploadForm = (props: UploadFormProps) => {
         ))}
 
         <div className="flex flex-col gap-4">
-          <KolynButton 
-            label="Add more slot" 
-            isResponsive={false} 
-            onClick={addSlotHandler} 
-            bgColor="bg-checkBoxColor" 
+          <KolynButton
+            label="Add more slot"
+            isResponsive={false}
+            onClick={addSlotHandler}
+            bgColor="bg-checkBoxColor"
           />
-          
+
           <Link to="/home">
-            <KolynButton 
-              label="Cancel" 
-              isResponsive={false} 
-              onClick={undefined} 
-              bgColor="bg-errorColor" 
+            <KolynButton
+              label="Cancel"
+              isResponsive={false}
+              onClick={undefined}
+              bgColor="bg-errorColor"
             />
           </Link>
 
-          <KolynButton 
-            label="Submit" 
-            isResponsive={false} 
-            onClick={submitHandler} 
-            bgColor="bg-mainColor" 
+          <KolynButton
+            label="Submit"
+            isResponsive={false}
+            onClick={submitHandler}
+            bgColor="bg-mainColor"
           />
         </div>
       </div>
@@ -227,11 +233,11 @@ const DateTextField = (props: DateTextFieldProps) => {
       <div className="label">
         <span className="label-text">{props.labelName}</span>
       </div>
-      <input 
-        type="date" 
-        placeholder="Date" 
-        className="input input-bordered w-full max-w-xs border-4" 
-        onChange={props.onChange} name={props.name} 
+      <input
+        type="date"
+        placeholder="Date"
+        className="input input-bordered w-full max-w-xs border-4"
+        onChange={props.onChange} name={props.name}
         value={props.value}
       />
     </label>

@@ -19,7 +19,7 @@ const UploadPage = () => {
     }]
   });
 
-  const fetchHandler = async () => {
+  const fetchHandler = async (): Promise<boolean | undefined> => {
     try {
       for (let i = 0; i < uploadOfficeHour.slot.length; i++) {
         await fetch("http://localhost:8080/api/officeHour/upload", {
@@ -38,16 +38,18 @@ const UploadPage = () => {
             "courseNumber": uploadOfficeHour.courseNumber,
           })
         });
+        return true;
       }
     } catch (error) {
       console.error(error);
+      return false;
     }
   }
 
   return (
     <div className="uploadpage">
-      <UploadForm 
-        uploadOfficeHour={uploadOfficeHour} 
+      <UploadForm
+        uploadOfficeHour={uploadOfficeHour}
         setUploadOfficeHour={setUploadOfficeHour}
         fetchHandler={fetchHandler}
         isFromEditPage={false}
