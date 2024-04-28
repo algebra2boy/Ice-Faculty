@@ -4,7 +4,7 @@ import { OfficeHour } from "../../models/officeHour.model";
 const OfficeHourGallery = () => {
   const tempOfficeHours: OfficeHour[] = [
     {
-      department: "Labor",
+      department: "Labor Relations",
       courseNumber: "230",
       startDate: "2024-04-14",
       endDate: "2024-04-05",
@@ -19,6 +19,12 @@ const OfficeHourGallery = () => {
         {
           id: "d72923f6-bc7c-47db-b5b1-2e658c6c458b",
           day: "Wednesday",
+          startTime: "13:30",
+          endTime: "14:30"
+        },
+        {
+          id: "22341304-c4a4-49e1-a77b-a4ff63f9b7c9",
+          day: "Friday",
           startTime: "13:30",
           endTime: "14:30"
         }

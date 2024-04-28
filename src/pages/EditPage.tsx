@@ -14,8 +14,7 @@ const EditPage = () => {
   const fetchHandler = async () => {
     try {
       for (let i = 0; i < uploadOfficeHour.slot.length; i++) {
-        console.log(uploadOfficeHour.department);
-        const response = await fetch("http://localhost:8080/api/officeHour/edit", {
+        await fetch("http://localhost:8080/api/officeHour/edit", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"
@@ -32,8 +31,6 @@ const EditPage = () => {
             "courseNumber": uploadOfficeHour.courseNumber,
           })
         });
-        const data = await response.json();
-        console.log(data);
       }
       return true;
     } catch (error) {

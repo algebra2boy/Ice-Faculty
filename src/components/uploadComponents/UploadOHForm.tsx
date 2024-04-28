@@ -1,4 +1,4 @@
-import { reverseDepartment, departmentOptions } from '../../models/departmentOptions';
+import { departmentOptions } from '../../models/departmentOptions';
 import { Slot, OfficeHour } from '../../models/officeHour.model';
 import { Link } from 'react-router-dom';
 import { KolynTextfield2 } from '../../styles';
@@ -110,7 +110,7 @@ const UploadForm = (props: UploadFormProps) => {
           className="select select-bordered select-sm w-full border-4 max-w-xs bg-base-100 h-10"
           onChange={valueHandler}
           name="department"
-          value={reverseDepartment[uploadOfficeHour.department as keyof typeof reverseDepartment]}
+          value={uploadOfficeHour.department}
         >
           <option value="Select Course Department" disabled>
             Select Course Department
