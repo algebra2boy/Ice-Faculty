@@ -42,7 +42,47 @@ const OfficeHourGallery = () => {
           endTime: "14:00"
         }
       ]
-    }
+    },
+    {
+      id: "1a2b3c4d-5e6f-7g8h-9i10j11k12l",
+      department: "COMPSCI",
+      courseNumber: "101",
+      startDate: "2024-03-01",
+      endDate: "2024-06-05",
+      facultyName: "Jane Smith",
+      slot: [
+        {
+          day: "Wednesday",
+          startTime: "14:00",
+          endTime: "15:00"
+        },
+        {
+          day: "Thursday",
+          startTime: "13:00",
+          endTime: "14:00"
+        }
+      ]
+    },
+    {
+      id: "1a2b3c4d-5e6f-7g8h-9i10j11k12l",
+      department: "COMPSCI",
+      courseNumber: "101",
+      startDate: "2024-03-01",
+      endDate: "2024-06-05",
+      facultyName: "Jane Smith",
+      slot: [
+        {
+          day: "Wednesday",
+          startTime: "14:00",
+          endTime: "15:00"
+        },
+        {
+          day: "Thursday",
+          startTime: "13:00",
+          endTime: "14:00"
+        }
+      ]
+    },
   ];
 
   return (

@@ -1,5 +1,6 @@
 import { LoginFormProps } from "../../models/auth.model";
 import { Link } from "react-router-dom";
+import { isMobile } from "react-device-detect";
 import { KolynTextfield, KolynButton, KolynLabel } from "../../styles";
 
 const LoginFormContent: React.FC<LoginFormProps> = (props: LoginFormProps) => {
@@ -24,8 +25,9 @@ const LoginFormContent: React.FC<LoginFormProps> = (props: LoginFormProps) => {
           name="password"
         />
       </div>
-      <div className="basis-24" />
-      <div className="flex flex-col space-y-4 items-center w-full">
+      {isMobile && <div className="basis-24" />}
+      <div className={isMobile ? "flex flex-col space-y-4 items-center w-full" : 
+                                 "flex flex-row space-x-4 items-center w-full justify-center"}>
         <Link to="home">
           <KolynButton 
             label="Login" 

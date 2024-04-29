@@ -1,6 +1,7 @@
 import { reverseDepartment, departmentOptions } from '../../models/departmentOptions';
 import { Slot, OfficeHour } from '../../models/officeHour.model';
 import { Link } from 'react-router-dom';
+import { isMobile } from 'react-device-detect';
 import { KolynTextfield2 } from '../../styles';
 import { KolynButton } from '../../styles';
 
@@ -99,7 +100,9 @@ const UploadForm = (props: UploadFormProps) => {
 
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <div className="mx-auto w-[400px] p-6 rounded-lg shadow-lg flex flex-col gap-3.5 items-center border-black border-4">
+      <div className={isMobile ? 
+                      "mx-auto w-full p-6 shadow-lg flex flex-col gap-3.5 items-center" :
+                      "mx-auto w-[400px] p-6 rounded-lg shadow-lg flex flex-col gap-3.5 items-center border-black border-4"}>
         <select
           className="select select-bordered select-sm w-full max-w-xs w-full border-4 max-w-xs bg-base-100 h-10"
           defaultValue={"DEFAULT"}
