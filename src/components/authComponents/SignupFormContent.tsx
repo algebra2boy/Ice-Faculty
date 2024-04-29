@@ -3,19 +3,13 @@ import { Link } from "react-router-dom";
 import { KolynTextfield, KolynButton, KolynLabel } from "../../styles";
 
 const SignupFormContent: React.FC<SignupLoginFormProps> = (props: SignupLoginFormProps) => {
-  const { name, password, confirmedPassword, valueHandler } = props;
+  const { email, password, confirmedPassword, valueHandler } = props;
 
   return (
     <>
       <KolynLabel label="Sign Up" />
       <div className="flex flex-col items-center space-y-4 w-full">
-        <KolynTextfield
-          textfieldType="text"
-          placeholder="Name"
-          value={name}
-          onChange={valueHandler}
-          name="name"
-        />
+        <KolynTextfield textfieldType="text" placeholder="Name" value={email} onChange={valueHandler} name="email" />
         <KolynTextfield
           textfieldType="password"
           placeholder="Password"
@@ -34,12 +28,7 @@ const SignupFormContent: React.FC<SignupLoginFormProps> = (props: SignupLoginFor
       <div className="basis-24" />
       <div className="flex flex-col space-y-4 items-center w-full">
         <Link to="/">
-          <KolynButton 
-            label="Sign Up" 
-            isResponsive={true} 
-            onClick={undefined} 
-            bgColor="bg-mainColor"
-          />
+          <KolynButton label="Sign Up" isResponsive={true} onClick={undefined} bgColor="bg-mainColor" />
         </Link>
       </div>
     </>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { KolynTextfield, KolynButton, KolynLabel } from "../../styles";
 
 const LoginFormContent: React.FC<LoginFormProps> = (props: LoginFormProps) => {
-  const { name, password, valueHandler } = props;
+  const { email, password, valueHandler } = props;
 
   return (
     <>
@@ -11,10 +11,10 @@ const LoginFormContent: React.FC<LoginFormProps> = (props: LoginFormProps) => {
       <div className="flex flex-col items-center space-y-4 w-full">
         <KolynTextfield
           textfieldType="text"
-          placeholder="Name"
-          value={name}
+          placeholder="Email"
+          value={email}
           onChange={valueHandler}
-          name="name"
+          name="email"
         />
         <KolynTextfield
           textfieldType="password"
