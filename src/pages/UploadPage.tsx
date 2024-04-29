@@ -6,22 +6,23 @@ import { dayConverter } from "../components/uploadComponents/UploadOHForm";
 const UploadPage = () => {
 
   const [uploadOfficeHour, setUploadOfficeHour] = useState<OfficeHour>({
-    id: "",
     department: "",
     courseNumber: "",
     startDate: "",
     endDate: "",
     facultyName: "",
     slot: [{
+      id: "defaultID",
       day: "Monday",
       startTime: "",
       endTime: ""
     }]
   });
 
-  const fetchHandler = async () => {
+  const fetchHandler = async (): Promise<boolean | undefined> => {
     try {
       for (let i = 0; i < uploadOfficeHour.slot.length; i++) {
+        console.log('fetching', i);
         await fetch("http://localhost:8080/api/officeHour/upload", {
           method: "POST",
           headers: {
@@ -39,15 +40,17 @@ const UploadPage = () => {
           })
         });
       }
+      return true;
     } catch (error) {
       console.error(error);
+      return false;
     }
   }
 
   return (
     <div className="uploadpage">
-      <UploadForm 
-        uploadOfficeHour={uploadOfficeHour} 
+      <UploadForm
+        uploadOfficeHour={uploadOfficeHour}
         setUploadOfficeHour={setUploadOfficeHour}
         fetchHandler={fetchHandler}
         isFromEditPage={false}

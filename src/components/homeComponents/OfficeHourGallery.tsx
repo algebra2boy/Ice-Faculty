@@ -4,42 +4,29 @@ import { OfficeHour } from "../../models/officeHour.model";
 const OfficeHourGallery = () => {
   const tempOfficeHours: OfficeHour[] = [
     {
-      id: "0c9d52a7-ec28-4bb9-8967-33af44b59508",
-      department: "NUTR",
-      courseNumber: "130",
-      startDate: "2024-02-01",
-      endDate: "2024-05-05",
-      facultyName: "John Doe",
+      department: "Labor Relations",
+      courseNumber: "230",
+      startDate: "2024-04-14",
+      endDate: "2024-04-05",
+      facultyName: "Labor",
       slot: [
         {
+          id: "660e70b8-da43-4397-ad38-0e8aadca97f6",
           day: "Monday",
-          startTime: "12:00",
-          endTime: "13:00"
+          startTime: "13:30",
+          endTime: "14:30"
         },
         {
-          day: "Tuesday",
-          startTime: "11:00",
-          endTime: "12:00"
-        }
-      ]
-    },
-    {
-      id: "1a2b3c4d-5e6f-7g8h-9i10j11k12l",
-      department: "COMPSCI",
-      courseNumber: "101",
-      startDate: "2024-03-01",
-      endDate: "2024-06-05",
-      facultyName: "Jane Smith",
-      slot: [
-        {
+          id: "d72923f6-bc7c-47db-b5b1-2e658c6c458b",
           day: "Wednesday",
-          startTime: "14:00",
-          endTime: "15:00"
+          startTime: "13:30",
+          endTime: "14:30"
         },
         {
-          day: "Thursday",
-          startTime: "13:00",
-          endTime: "14:00"
+          id: "22341304-c4a4-49e1-a77b-a4ff63f9b7c9",
+          day: "Friday",
+          startTime: "13:30",
+          endTime: "14:30"
         }
       ]
     },
