@@ -8,6 +8,8 @@ export interface LoginFormProps {
   email: string;
   password: string;
   valueHandler: (e: ChangeEvent<HTMLInputElement>) => void;
+  errorMsg: string;
+  errorHandler: (errorMsg: string) => void;
 }
 
 export interface SignupLoginFormProps {
@@ -15,5 +17,7 @@ export interface SignupLoginFormProps {
   password: string;
   confirmedPassword: string;
   valueHandler: (e: ChangeEvent<HTMLInputElement>) => void;
+  errorMsg: string;
+  errorHandler: (errorMsg: string) => void;
 }
 
