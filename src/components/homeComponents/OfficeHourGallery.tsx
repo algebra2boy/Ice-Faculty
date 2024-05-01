@@ -18,7 +18,7 @@ const OfficeHourGallery = () => {
     array.forEach((obj: FetchedOfficeHour) => {
       // Split office hours into partitions with the same key consist of startDate, endDate, courseDepartment, and courseNumber
       // "#splitter#" is used for extracting the these key properties back when creating slots
-      const key = `${obj.startDate}#splitter#${obj.endDate}#splitter#${obj.courseDepartment}#splitter#${obj.courseNumber}`;
+      const key = `${obj.startDate}#splitter#${obj.endDate}#splitter#${obj.facultyName}#splitter#${obj.courseDepartment}#splitter#${obj.courseNumber}`;
 
       // Add the office hours with the same key properties to the same partition
       if (!partitions[key]) {
@@ -54,8 +54,9 @@ const OfficeHourGallery = () => {
   useEffect(() => {
     const fetchOfficeHourList = async () => {
       try {
-        const response = await fetch(`${serverAddress}/api/officeHour/list?email=${userEmail}&isTeacher=${true}`, {
-          method: "GET",
+        console.log(userEmail)
+        const response = await fetch(`${serverAddress}api/officeHour/list?email=${userEmail}&isTeacher=${true}`, {
+          method: "POST",
         });
 
         console.log(response)
@@ -67,21 +68,15 @@ const OfficeHourGallery = () => {
         if (serverResponse.status === "success" && response.ok) {
           const officeHours = serverResponse.officeHours;
 
-          // Convert the day (number type) attribute of office hour from the fetched list to string type
-          const stringDayOfficeHours = officeHours.map((officeHour: FetchedOfficeHour) => ({
-            ...officeHour,
-            day: numDayConverter(officeHour.day),
-          }));
-
           // Split all office hours into partitions where the office hour with same startDate, endDate,
           // courseDepartment, and courseNumber go to the same partition
-          const partitionedOfficeHours = partitionOfficeHours(stringDayOfficeHours);
+          const partitionedOfficeHours = partitionOfficeHours(officeHours);
 
           // Use the partitions to generate office hour list with slots
           const officeHoursWithSlots = getOfficeHoursWithSlots(partitionedOfficeHours);
           setOfficeHourList(officeHoursWithSlots);
         } else if (serverResponse.status) {
-          setErrorMsg(serverResponse.message);
+          setErrorMsg("Please log in first");
         } else {
           // edge cases
           setErrorMsg("An error has occurred, please try again later.");
@@ -93,12 +88,15 @@ const OfficeHourGallery = () => {
 
     function getOfficeHoursWithSlots(partitionedOfficeHours: Record<string, FetchedOfficeHour[]>): OfficeHour[] {
       return Object.keys(partitionedOfficeHours).map((key) => {
-        const [startDate, endDate, facultyName, courseDepartment, courseNumber] = key.split("#splitter#");
+        console.log(key.split("#splitter#"))
+        const [startDate, endDate, facultyName, department, courseNumber] = key.split("#splitter#");
+        
+ 
         const slots: Slot[] = [];
         partitionedOfficeHours[key].forEach((slot) => {
           slots.push({ id: slot.id, day: numDayConverter(slot.day), startTime: slot.startTime, endTime: slot.endTime });
         });
-        return { startDate, endDate, facultyName, department: courseDepartment, courseNumber, slot: slots };
+        return { startDate, endDate, facultyName, department, courseNumber, slot: slots };
       });
     }
     
@@ -112,6 +110,7 @@ const OfficeHourGallery = () => {
       ) : (
         <div className="grid grid-cols-1 twoCards:grid-cols-2 threeCards:grid-cols-3 gap-8">
           {officeHourList.map((officeHour: OfficeHour, i: number) => {
+            console.log(officeHour)
             return <OfficeHourCard key={i} {...officeHour} />;
           })}
         </div>

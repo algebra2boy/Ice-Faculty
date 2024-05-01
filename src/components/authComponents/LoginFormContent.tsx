@@ -18,9 +18,7 @@ const LoginFormContent: React.FC<LoginFormProps> = (props: LoginFormProps) => {
     redirect("/home");
   }
 
-  const loginOnClickHandler = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.preventDefault();
-    
+  const loginOnClickHandler = async () => {
     try {
       const hashedPassword = await encryptPassword(password);
       // HTTP POST
