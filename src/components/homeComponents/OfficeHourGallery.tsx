@@ -54,16 +54,12 @@ const OfficeHourGallery = () => {
   useEffect(() => {
     const fetchOfficeHourList = async () => {
       try {
-        console.log(userEmail)
+        // TODO: Change method back to GET after backend deploys
         const response = await fetch(`${serverAddress}api/officeHour/list?email=${userEmail}&isTeacher=${true}`, {
           method: "POST",
         });
 
-        console.log(response)
-
         const serverResponse = await response.json();
-
-        console.log(serverResponse)
 
         if (serverResponse.status === "success" && response.ok) {
           const officeHours = serverResponse.officeHours;
