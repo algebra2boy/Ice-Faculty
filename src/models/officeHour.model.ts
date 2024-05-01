@@ -13,3 +13,15 @@ export interface OfficeHour {
   facultyName: string;
   slot: Slot[];
 }
+
+export interface FetchedOfficeHour {
+  id: string;
+  facultyName: string;
+  startDate: string;
+  endDate: string;
+  day: number;
+  startTime: string;
+  endTime: string;
+  courseDepartment: string;
+  courseNumber: string;
+}
