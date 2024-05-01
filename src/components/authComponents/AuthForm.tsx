@@ -6,10 +6,11 @@ import { AuthProps } from "../../models/auth.model";
 
 const AuthForm: React.FC<AuthProps> = ({ authType }) => {
   const [authForm, setAuthForm] = useState({
-    name: "",
+    email: "",
     password: "",
-    confirmedPassword: ""
+    confirmedPassword: "",
   });
+  const [errorMsg, setErrorMsg] = useState("")
 
   const valueHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -18,20 +19,28 @@ const AuthForm: React.FC<AuthProps> = ({ authType }) => {
   }
 
   return (
-    <form className="flex mx-auto w-full md:w-2/3 xl:w-1/3 p-6 bg-white">
+    <div className="flex mx-auto w-full md:w-2/3 xl:w-1/3 p-6 bg-white">
       <div className="flex flex-col gap-4 w-full">
         {authType === "login" ? (
-          <LoginFormContent name={authForm.name} password={authForm.password} valueHandler={valueHandler} />
+          <LoginFormContent
+            email={authForm.email}
+            password={authForm.password}
+            valueHandler={valueHandler}
+            errorMsg={errorMsg}
+            errorHandler={setErrorMsg}
+          />
         ) : (
           <SignupFormContent
-            name={authForm.name}
+            email={authForm.email}
             password={authForm.password}
             confirmedPassword={authForm.confirmedPassword}
             valueHandler={valueHandler}
+            errorMsg={errorMsg}
+            errorHandler={setErrorMsg}
           />
         )}
       </div>
-    </form>
+    </div>
   );
 };
 

@@ -5,15 +5,19 @@ export interface AuthProps {
 }
 
 export interface LoginFormProps {
-  name: string;
+  email: string;
   password: string;
   valueHandler: (e: ChangeEvent<HTMLInputElement>) => void;
+  errorMsg: string;
+  errorHandler: (errorMsg: string) => void;
 }
 
 export interface SignupLoginFormProps {
-  name: string;
+  email: string;
   password: string;
   confirmedPassword: string;
   valueHandler: (e: ChangeEvent<HTMLInputElement>) => void;
+  errorMsg: string;
+  errorHandler: (errorMsg: string) => void;
 }
 

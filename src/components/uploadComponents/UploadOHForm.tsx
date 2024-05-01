@@ -194,28 +194,13 @@ const UploadForm = (props: UploadFormProps) => {
         ))}
 
         <div className="flex flex-col gap-4">
-          <KolynButton
-            label="Add more slot"
-            isResponsive={false}
-            onClick={addSlotHandler}
-            bgColor="bg-checkBoxColor"
-          />
+          <KolynButton label="Add more slot" isResponsive={false} onClick={addSlotHandler} bgColor="bg-checkBoxColor" />
 
           <Link to="/home">
-            <KolynButton
-              label="Cancel"
-              isResponsive={false}
-              onClick={undefined}
-              bgColor="bg-errorColor"
-            />
+            <KolynButton label="Cancel" isResponsive={false} onClick={undefined} bgColor="bg-errorColor" />
           </Link>
 
-          <KolynButton
-            label="Submit"
-            isResponsive={false}
-            onClick={submitHandler}
-            bgColor="bg-mainColor"
-          />
+          <KolynButton label="Submit" isResponsive={false} onClick={submitHandler} bgColor="bg-mainColor" />
         </div>
       </div>
     </div>
