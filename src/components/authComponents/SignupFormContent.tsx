@@ -65,7 +65,7 @@ const SignupFormContent: React.FC<SignupLoginFormProps> = (props: SignupLoginFor
 
       const hashedPassword = await encryptPassword(password);
       // HTTP POST
-      const response = await fetch("https://8513-128-119-202-122.ngrok-free.app/api/auth/signup", {
+      const response = await fetch("https://ba36-2601-19b-4100-7290-e183-8a9-6ee1-d011.ngrok-free.app/api/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -82,7 +82,6 @@ const SignupFormContent: React.FC<SignupLoginFormProps> = (props: SignupLoginFor
       if (serverResponse.status === "success" && response.ok) {
         // success
         navigate("/");
-        // return serverResponse.token;
       } else if (serverResponse.status) {
         const message = serverResponse.message;
         if (Array.isArray(message)) {

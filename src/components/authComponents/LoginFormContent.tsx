@@ -1,5 +1,7 @@
 import { LoginFormProps } from "../../models/auth.model";
-import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useNavigate, redirect } from "react-router-dom";
+import { UserContext } from "../UserProvider";
 import { KolynTextfield, KolynButton, KolynLabel } from "../../styles";
 import encryptPassword from "../../encrypt";
 
@@ -7,13 +9,20 @@ const LoginFormContent: React.FC<LoginFormProps> = (props: LoginFormProps) => {
   const { email, password, valueHandler, errorMsg, errorHandler } = props;
   const navigate = useNavigate();
 
+  const { userEmail, setUserEmail } = useContext(UserContext);
+
+  // TODO: Add cookies to make redirecting work
+  if (userEmail) {
+    redirect("/home");
+  }
+
   const loginOnClickHandler = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
-
+    
     try {
       const hashedPassword = await encryptPassword(password);
       // HTTP POST
-      const response = await fetch("https://8513-128-119-202-122.ngrok-free.app/api/auth/login", {
+      const response = await fetch("https://ba36-2601-19b-4100-7290-e183-8a9-6ee1-d011.ngrok-free.app/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -29,8 +38,8 @@ const LoginFormContent: React.FC<LoginFormProps> = (props: LoginFormProps) => {
       const serverResponse = await response.json();
       if (serverResponse.status === "success" && response.ok) {
         // success
+        setUserEmail(email)
         navigate("/home");
-        // return serverResponse.token;
       } else if (serverResponse.status) {
         errorHandler(serverResponse.message);
       } else {
