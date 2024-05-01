@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { KolynTextfield, KolynButton, KolynLabel } from "../../styles";
 import encryptPassword from "../../encrypt";
 
+import { serverAddress } from "../../serverAddress.config";
+
 const SignupFormContent: React.FC<SignupLoginFormProps> = (props: SignupLoginFormProps) => {
   const { email, password, confirmedPassword, valueHandler, errorMsg, errorHandler } = props;
   const navigate = useNavigate();
@@ -65,7 +67,7 @@ const SignupFormContent: React.FC<SignupLoginFormProps> = (props: SignupLoginFor
 
       const hashedPassword = await encryptPassword(password);
       // HTTP POST
-      const response = await fetch("https://ba36-2601-19b-4100-7290-e183-8a9-6ee1-d011.ngrok-free.app/api/auth/signup", {
+      const response = await fetch(`${serverAddress}api/auth/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

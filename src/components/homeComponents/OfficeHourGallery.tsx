@@ -4,8 +4,9 @@ import { UserContext } from "../UserProvider";
 import { useContext, useEffect, useState } from "react";
 import { FetchedOfficeHour } from "../../models/officeHour.model";
 
+import { serverAddress } from "../../serverAddress.config";
+
 const OfficeHourGallery = () => {
-  const serverAddress = "https://ba36-2601-19b-4100-7290-e183-8a9-6ee1-d011.ngrok-free.app/";
   const { userEmail } = useContext(UserContext);
 
   const [officeHourList, setOfficeHourList] = useState<OfficeHour[]>([]);

@@ -5,6 +5,8 @@ import { UserContext } from "../UserProvider";
 import { KolynTextfield, KolynButton, KolynLabel } from "../../styles";
 import encryptPassword from "../../encrypt";
 
+import { serverAddress } from "../../serverAddress.config";
+
 const LoginFormContent: React.FC<LoginFormProps> = (props: LoginFormProps) => {
   const { email, password, valueHandler, errorMsg, errorHandler } = props;
   const navigate = useNavigate();
@@ -22,7 +24,7 @@ const LoginFormContent: React.FC<LoginFormProps> = (props: LoginFormProps) => {
     try {
       const hashedPassword = await encryptPassword(password);
       // HTTP POST
-      const response = await fetch("https://ba36-2601-19b-4100-7290-e183-8a9-6ee1-d011.ngrok-free.app/api/auth/login", {
+      const response = await fetch(`${serverAddress}api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
