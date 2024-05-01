@@ -7,7 +7,7 @@ const OfficeHourCard: React.FC<OfficeHour> = (props) => {
   const { department, courseNumber, startDate, endDate, slot } = props;
 
   return (
-    <div className="card shadow-md border-4 min-w-[300px] max-w-[300px] m-4">
+    <div className="card shadow-md border-4 min-w-[300px] max-w-[300px] p-1">
       <div className="card-body divide-y-2 pb-2">
         <h3 className="card-title text-3xl my-6 h-0.5 border-t-0 ">{department + " " + courseNumber}</h3>
         <DurationEntry start={startDate} end={endDate} />

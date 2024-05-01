@@ -2,6 +2,8 @@ import { LoginFormProps } from "../../models/auth.model";
 import { useContext } from "react";
 import { Link, useNavigate, redirect } from "react-router-dom";
 import { UserContext } from "../UserProvider";
+import { isMobile } from "react-device-detect";
+
 import { KolynTextfield, KolynButton, KolynLabel } from "../../styles";
 import encryptPassword from "../../encrypt";
 
@@ -65,9 +67,17 @@ const LoginFormContent: React.FC<LoginFormProps> = (props: LoginFormProps) => {
           name="password"
         />
       </div>
-      <div className="basis-24" />
-      <div className="flex flex-col space-y-4 items-center w-full">
-        <KolynButton label="Login" isResponsive={true} onClick={loginOnClickHandler} bgColor="bg-mainColor" />
+      {isMobile && <div className="basis-24" />}
+      <div className={isMobile ? "flex flex-col space-y-4 items-center w-full" : 
+                                 "flex flex-row space-x-4 items-center w-full justify-center"}>
+        <Link to="home">
+          <KolynButton 
+            label="Login" 
+            isResponsive={true} 
+            onClick={undefined} 
+            bgColor="bg-mainColor" 
+          />
+        </Link>
         <Link to="signup">
           <KolynButton label="Sign Up" isResponsive={true} onClick={undefined} bgColor="bg-mainColor" />
         </Link>

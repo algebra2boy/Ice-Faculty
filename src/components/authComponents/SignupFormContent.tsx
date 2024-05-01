@@ -1,5 +1,7 @@
 import { SignupLoginFormProps } from "../../models/auth.model";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { isMobile } from "react-device-detect";
 import { KolynTextfield, KolynButton, KolynLabel } from "../../styles";
 import encryptPassword from "../../encrypt";
 
@@ -129,9 +131,25 @@ const SignupFormContent: React.FC<SignupLoginFormProps> = (props: SignupLoginFor
           name="confirmedPassword"
         />
       </div>
-      <div className="basis-24" />
-      <div className="flex flex-col space-y-4 items-center w-full">
-        <KolynButton label="Sign Up" isResponsive={true} onClick={signupOnClickHandler} bgColor="bg-mainColor" />
+      {isMobile && <div className="basis-24" />}
+      <div className={isMobile ? "flex flex-col space-y-4 items-center w-full" : 
+                                 "flex flex-row space-x-4 items-center w-full justify-center"}>
+        <Link to="/">
+          <KolynButton 
+            label="Sign Up" 
+            isResponsive={true} 
+            onClick={undefined} 
+            bgColor="bg-mainColor"
+          />
+        </Link>
+        <Link to="/">
+          <KolynButton
+            label="Cancel" 
+            isResponsive={true} 
+            onClick={undefined} 
+            bgColor="bg-mainColor" 
+          />
+        </Link>
       </div>
     </>
   );
