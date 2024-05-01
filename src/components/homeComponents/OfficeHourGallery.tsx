@@ -55,7 +55,7 @@ const OfficeHourGallery = () => {
     const fetchOfficeHourList = async () => {
       try {
         // TODO: Change method back to GET after backend deploys
-        const response = await fetch(`${serverAddress}api/officeHour/list?email=${userEmail}&isTeacher=${true}`, {
+        const response = await fetch(`${serverAddress}api/officeHour/list?email=${userEmail.toLowerCase()}&isTeacher=true`, {
           method: "POST",
         });
 
@@ -84,10 +84,9 @@ const OfficeHourGallery = () => {
 
     function getOfficeHoursWithSlots(partitionedOfficeHours: Record<string, FetchedOfficeHour[]>): OfficeHour[] {
       return Object.keys(partitionedOfficeHours).map((key) => {
-        console.log(key.split("#splitter#"))
+        console.log(key.split("#splitter#"));
         const [startDate, endDate, facultyName, department, courseNumber] = key.split("#splitter#");
-        
- 
+
         const slots: Slot[] = [];
         partitionedOfficeHours[key].forEach((slot) => {
           slots.push({ id: slot.id, day: numDayConverter(slot.day), startTime: slot.startTime, endTime: slot.endTime });
@@ -95,18 +94,22 @@ const OfficeHourGallery = () => {
         return { startDate, endDate, facultyName, department, courseNumber, slot: slots };
       });
     }
-    
+
     fetchOfficeHourList();
   }, [userEmail]);
 
   return (
     <div className="container w-full mx-auto flex justify-center">
       {errorMsg ? (
-        <div className="m-auto text-errorColor">{errorMsg}</div>
+        <div className="m-auto text-errorColor">
+          <p className="mt-10 text-2xl">{errorMsg}</p>
+        </div>
+      ) : officeHourList.length === 0 ? (
+        <div className="mt-10 text-2xl">No office hour stored yet</div>
       ) : (
         <div className="grid grid-cols-1 twoCards:grid-cols-2 threeCards:grid-cols-3 gap-8">
           {officeHourList.map((officeHour: OfficeHour, i: number) => {
-            console.log(officeHour)
+            console.log(officeHour);
             return <OfficeHourCard key={i} {...officeHour} />;
           })}
         </div>

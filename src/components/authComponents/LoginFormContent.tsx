@@ -40,10 +40,10 @@ const LoginFormContent: React.FC<LoginFormProps> = (props: LoginFormProps) => {
       const serverResponse = await response.json();
       if (serverResponse.status === "success" && response.ok) {
         // success
-        setUserEmail(email)
+        setUserEmail(email);
         navigate("/home");
       } else if (serverResponse.status) {
-        errorHandler(serverResponse.message);
+        errorHandler(Array.isArray(serverResponse.message) ? serverResponse.message[0] : serverResponse.message);
       } else {
         // edge case
         errorHandler("An error has occurred, please try again later.");
@@ -68,16 +68,12 @@ const LoginFormContent: React.FC<LoginFormProps> = (props: LoginFormProps) => {
         />
       </div>
       {isMobile && <div className="basis-24" />}
-      <div className={isMobile ? "flex flex-col space-y-4 items-center w-full" : 
-                                 "flex flex-row space-x-4 items-center w-full justify-center"}>
-        <Link to="home">
-          <KolynButton 
-            label="Login" 
-            isResponsive={true} 
-            onClick={loginOnClickHandler} 
-            bgColor="bg-mainColor" 
-          />
-        </Link>
+      <div
+        className={
+          isMobile ? "flex flex-col space-y-4 items-center w-full" : "flex flex-row space-x-4 items-center w-full justify-center"
+        }
+      >
+        <KolynButton label="Login" isResponsive={true} onClick={loginOnClickHandler} bgColor="bg-mainColor" />
         <Link to="signup">
           <KolynButton label="Sign Up" isResponsive={true} onClick={undefined} bgColor="bg-mainColor" />
         </Link>
