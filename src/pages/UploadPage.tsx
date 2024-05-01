@@ -1,11 +1,14 @@
 import { useState, useContext } from "react";
 import UploadForm from "../components/uploadComponents/UploadOHForm";
+import { useNavigate } from "react-router-dom";
 import { OfficeHour } from "../models/officeHour.model";
 import { dayConverter } from "../components/uploadComponents/UploadOHForm";
 import { UserContext } from "../components/UserProvider";
+import { serverAddress } from "../serverAddress.config";
 
 const UploadPage = () => {
   const { userEmail } = useContext(UserContext);
+  const navigate = useNavigate()
 
   const [uploadOfficeHour, setUploadOfficeHour] = useState<OfficeHour>({
     department: "",
@@ -30,13 +33,13 @@ const UploadPage = () => {
 
     try {
       for (let i = 0; i < uploadOfficeHour.slot.length; i++) {
-        console.log("fetching", i);
-        await fetch("http://localhost:8080/api/officeHour/upload", {
+        await fetch(`${serverAddress}api/officeHour/upload`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
+            facultyEmail: userEmail,
             facultyName: uploadOfficeHour.facultyName,
             startDate: uploadOfficeHour.startDate,
             endDate: uploadOfficeHour.endDate,
@@ -48,6 +51,7 @@ const UploadPage = () => {
           }),
         });
       }
+      navigate('/home')
       return true;
     } catch (error) {
       console.error(error);

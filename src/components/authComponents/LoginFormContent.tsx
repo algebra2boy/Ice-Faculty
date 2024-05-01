@@ -40,7 +40,7 @@ const LoginFormContent: React.FC<LoginFormProps> = (props: LoginFormProps) => {
       const serverResponse = await response.json();
       if (serverResponse.status === "success" && response.ok) {
         // success
-        setUserEmail(email);
+        setUserEmail(email.toLowerCase());
         navigate("/home");
       } else if (serverResponse.status) {
         errorHandler(Array.isArray(serverResponse.message) ? serverResponse.message[0] : serverResponse.message);

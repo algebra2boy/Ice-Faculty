@@ -118,7 +118,7 @@ const UploadForm = (props: UploadFormProps) => {
           <option value="Select Course Department" disabled>
             Select Course Department
           </option>
-          {departmentOptions.map((department, index) => (
+          {departmentOptions.sort().map((department, index) => (
             <option key={index} value={department}>
               {department}
             </option>

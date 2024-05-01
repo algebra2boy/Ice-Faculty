@@ -55,7 +55,7 @@ const OfficeHourGallery = () => {
     const fetchOfficeHourList = async () => {
       try {
         // TODO: Change method back to GET after backend deploys
-        const response = await fetch(`${serverAddress}api/officeHour/list?email=${userEmail.toLowerCase()}&isTeacher=true`, {
+        const response = await fetch(`${serverAddress}api/officeHour/list?email=${userEmail}&isTeacher=true`, {
           method: "POST",
         });
 
@@ -84,7 +84,6 @@ const OfficeHourGallery = () => {
 
     function getOfficeHoursWithSlots(partitionedOfficeHours: Record<string, FetchedOfficeHour[]>): OfficeHour[] {
       return Object.keys(partitionedOfficeHours).map((key) => {
-        console.log(key.split("#splitter#"));
         const [startDate, endDate, facultyName, department, courseNumber] = key.split("#splitter#");
 
         const slots: Slot[] = [];
@@ -109,7 +108,6 @@ const OfficeHourGallery = () => {
       ) : (
         <div className="grid grid-cols-1 twoCards:grid-cols-2 threeCards:grid-cols-3 gap-8">
           {officeHourList.map((officeHour: OfficeHour, i: number) => {
-            console.log(officeHour);
             return <OfficeHourCard key={i} {...officeHour} />;
           })}
         </div>
