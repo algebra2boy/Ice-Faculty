@@ -138,7 +138,7 @@ const SignupFormContent: React.FC<SignupLoginFormProps> = (props: SignupLoginFor
           <KolynButton 
             label="Sign Up" 
             isResponsive={true} 
-            onClick={undefined} 
+            onClick={signupOnClickHandler} 
             bgColor="bg-mainColor"
           />
         </Link>

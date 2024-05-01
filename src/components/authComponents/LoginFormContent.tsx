@@ -74,7 +74,7 @@ const LoginFormContent: React.FC<LoginFormProps> = (props: LoginFormProps) => {
           <KolynButton 
             label="Login" 
             isResponsive={true} 
-            onClick={undefined} 
+            onClick={loginOnClickHandler} 
             bgColor="bg-mainColor" 
           />
         </Link>
