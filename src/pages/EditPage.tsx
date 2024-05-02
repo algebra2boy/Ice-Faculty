@@ -1,15 +1,17 @@
 import UploadForm from "../components/uploadComponents/UploadOHForm";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { OfficeHour } from "../models/officeHour.model";
 import { dayConverter } from "../components/uploadComponents/UploadOHForm";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { serverAddress } from "../serverAddress.config";
-
+import { UserContext } from "../components/UserProvider";
 
 const EditPage = () => {
   const { state } = useLocation();
   const officeHour = state.officeHour;
+  const navigate = useNavigate()
 
+  const {userEmail }= useContext(UserContext)
   
   const [uploadOfficeHour, setUploadOfficeHour] = useState<OfficeHour>(officeHour);
 
@@ -24,6 +26,7 @@ const EditPage = () => {
           body: JSON.stringify({
             id: uploadOfficeHour.slot[i].id,
             facultyName: uploadOfficeHour.facultyName,
+            facultyEmail: userEmail,
             startDate: uploadOfficeHour.startDate,
             endDate: uploadOfficeHour.endDate,
             day: dayConverter(uploadOfficeHour.slot[i].day),
@@ -34,6 +37,7 @@ const EditPage = () => {
           }),
         });
       }
+      navigate('/home')
       return true;
     } catch (error) {
       console.error(error);
