@@ -14,6 +14,16 @@ export interface OfficeHour {
   slot: Slot[];
 }
 
+export interface OfficeHourWithRenderHandler {
+  department: string;
+  courseNumber: string;
+  startDate: string;
+  endDate: string;
+  facultyName: string;
+  slot: Slot[];
+  reRenderHandler: () => void;
+}
+
 export interface FetchedOfficeHour {
   id: string;
   facultyName: string;

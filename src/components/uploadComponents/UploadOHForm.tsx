@@ -12,7 +12,6 @@ interface UploadFormProps {
   isFromEditPage: boolean;
 }
 
-// TODO: Why is this here?
 export const dayConverter = (day: string): number => {
   switch (day) {
     case "Monday":
@@ -106,9 +105,13 @@ const UploadForm = (props: UploadFormProps) => {
 
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <div className={isMobile ? 
-                      "mx-auto w-full p-6 shadow-lg flex flex-col gap-3.5 items-center" :
-                      "mx-auto w-[400px] p-6 rounded-lg shadow-lg flex flex-col gap-3.5 items-center border-black border-4"}>
+      <div
+        className={
+          isMobile
+            ? "mx-auto w-full p-6 shadow-lg flex flex-col gap-3.5 items-center"
+            : "mx-auto w-[400px] p-6 rounded-lg shadow-lg flex flex-col gap-3.5 items-center border-black border-4"
+        }
+      >
         <select
           className="select select-bordered select-sm w-full border-4 max-w-xs bg-base-100 h-10"
           onChange={valueHandler}

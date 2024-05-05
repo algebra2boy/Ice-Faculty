@@ -1,7 +1,7 @@
 import OfficeHourCard from "./OfficeHourCard";
 import { OfficeHour, Slot } from "../../models/officeHour.model";
 import { UserContext } from "../UserProvider";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import { FetchedOfficeHour } from "../../models/officeHour.model";
 
 import { serverAddress } from "../../serverAddress.config";
@@ -51,51 +51,50 @@ const OfficeHourGallery = () => {
     }
   }
 
-  useEffect(() => {
-    const fetchOfficeHourList = async () => {
-      try {
-        // TODO: Change method back to GET after backend deploys
-        const response = await fetch(`${serverAddress}api/officeHour/list?email=${userEmail}&isTeacher=true`, {
-          method: "POST",
-        });
+  const getOfficeHoursWithSlots = useCallback((partitionedOfficeHours: Record<string, FetchedOfficeHour[]>): OfficeHour[] => {
+    return Object.keys(partitionedOfficeHours).map((key) => {
+      const [startDate, endDate, facultyName, department, courseNumber] = key.split("#splitter#");
 
-        const serverResponse = await response.json();
-
-        if (serverResponse.status === "success" && response.ok) {
-          const officeHours = serverResponse.officeHours;
-
-          // Split all office hours into partitions where the office hour with same startDate, endDate,
-          // courseDepartment, and courseNumber go to the same partition
-          const partitionedOfficeHours = partitionOfficeHours(officeHours);
-
-          // Use the partitions to generate office hour list with slots
-          const officeHoursWithSlots = getOfficeHoursWithSlots(partitionedOfficeHours);
-          setOfficeHourList(officeHoursWithSlots);
-        } else if (serverResponse.status) {
-          setErrorMsg("Please log in first");
-        } else {
-          // edge cases
-          setErrorMsg("An error has occurred, please try again later.");
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    function getOfficeHoursWithSlots(partitionedOfficeHours: Record<string, FetchedOfficeHour[]>): OfficeHour[] {
-      return Object.keys(partitionedOfficeHours).map((key) => {
-        const [startDate, endDate, facultyName, department, courseNumber] = key.split("#splitter#");
-
-        const slots: Slot[] = [];
-        partitionedOfficeHours[key].forEach((slot) => {
-          slots.push({ id: slot.id, day: numDayConverter(slot.day), startTime: slot.startTime, endTime: slot.endTime });
-        });
-        return { startDate, endDate, facultyName, department, courseNumber, slot: slots };
+      const slots: Slot[] = [];
+      partitionedOfficeHours[key].forEach((slot) => {
+        slots.push({ id: slot.id, day: numDayConverter(slot.day), startTime: slot.startTime, endTime: slot.endTime });
       });
-    }
+      return { startDate, endDate, facultyName, department, courseNumber, slot: slots };
+    });
+  }, []);
 
+  const fetchOfficeHourList = useCallback(async () => {
+    try {
+      const response = await fetch(`${serverAddress}api/officeHour/list?email=${userEmail}&isTeacher=true`, {
+        method: "GET",
+      });
+
+      const serverResponse = await response.json();
+
+      if (serverResponse.status === "success" && response.ok) {
+        const officeHours = serverResponse.officeHours;
+
+        // Split all office hours into partitions where the office hour with same startDate, endDate,
+        // courseDepartment, and courseNumber go to the same partition
+        const partitionedOfficeHours = partitionOfficeHours(officeHours);
+
+        // Use the partitions to generate office hour list with slots
+        const officeHoursWithSlots = getOfficeHoursWithSlots(partitionedOfficeHours);
+        setOfficeHourList(officeHoursWithSlots);
+      } else if (serverResponse.status) {
+        setErrorMsg("Please log in first");
+      } else {
+        // edge cases
+        setErrorMsg("An error has occurred, please try again later.");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [getOfficeHoursWithSlots, userEmail]);
+
+  useEffect(() => {
     fetchOfficeHourList();
-  }, [userEmail]);
+  }, [fetchOfficeHourList]);
 
   return (
     <div className="container w-full mx-auto flex justify-center">
@@ -108,7 +107,7 @@ const OfficeHourGallery = () => {
       ) : (
         <div className="grid grid-cols-1 twoCards:grid-cols-2 threeCards:grid-cols-3 gap-8">
           {officeHourList.map((officeHour: OfficeHour, i: number) => {
-            return <OfficeHourCard key={i} {...officeHour} />;
+            return <OfficeHourCard key={i} {...officeHour} reRenderHandler={fetchOfficeHourList} />;
           })}
         </div>
       )}
