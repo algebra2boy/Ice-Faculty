@@ -1,1 +1,1 @@
-export const serverAddress = "https://api.icefaculty.site/";
+export const serverAddress = "https://api.icequeb.site/";
