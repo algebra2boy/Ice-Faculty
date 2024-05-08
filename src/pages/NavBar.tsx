@@ -1,8 +1,12 @@
+import { useContext } from "react";
 import { Outlet, Link } from "react-router-dom";
 import logo from "/favicon.svg";
 import DarkModeIcon from "../components/LightDarkMode";
+import { UserContext } from "../components/UserProvider";
 
 const NavBar = () => {
+  const { userEmail } = useContext(UserContext);
+
   return (
     <div>
       <nav className="navbar bg-base-100">
@@ -12,8 +16,7 @@ const NavBar = () => {
         </div>
         <div className="flex-none">
           <ul className="menu menu-horizontal px-1">
-            {/* TODO: Only show upload button when user logins */}
-            <li><Link to="/upload">Upload</Link></li>
+            {userEmail !== "" ?? <li><Link to="/upload">Upload</Link></li>}
           </ul>
           <DarkModeIcon></DarkModeIcon>
         </div>
