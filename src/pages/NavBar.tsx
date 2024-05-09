@@ -16,7 +16,7 @@ const NavBar = () => {
         </div>
         <div className="flex-none">
           <ul className="menu menu-horizontal px-1">
-            {userEmail !== "" ?? <li><Link to="/upload">Upload</Link></li>}
+            {userEmail !== "" && <li><Link to="/upload">Upload</Link></li>}
           </ul>
           <DarkModeIcon></DarkModeIcon>
         </div>
